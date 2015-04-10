@@ -1,0 +1,11 @@
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\amadeus\Documents\RoguelikeGame\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\amadeus\Documents\RoguelikeGame\obj\Debug\UnityVS.RoguelikeGame.CSharp.csprojResolveAssemblyReference.cache
+C:\Users\amadeus\Documents\RoguelikeGame\obj\Debug\Assembly-CSharp.dll
+C:\Users\amadeus\Documents\RoguelikeGame\obj\Debug\Assembly-CSharp.pdb

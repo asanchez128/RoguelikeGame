@@ -66,13 +66,13 @@ public class BoardManager : MonoBehaviour
                         }
                         else if (x > pos.x && x < pos.x + width - 1)
                         {
-                            if (y == pos.y)//add to top
+                            if (y == pos.y)//add to bottom
                             {
-                                borders.Add(new Border(new Vector3(x, y - 2, 0f), 1));
+                                borders.Add(new Border(new Vector3(x, y - 2, 0f), 3));
                             }
-                            else if (y == pos.y + height - 1)//add to bottom
+                            else if (y == pos.y + height - 1)//add to top
                             {
-                                borders.Add(new Border(new Vector3(x, y + 2, 0f), 3));
+                                borders.Add(new Border(new Vector3(x, y + 2, 0f), 1));
                             }
                         }
                     }
@@ -86,13 +86,13 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public bool checkSpace(Vector3 topLeft, int width, int height)
+    public bool checkSpace(Vector3 bottomLeft, int width, int height)
     {
         bool result = true;
 
-        for (int y = (int)topLeft.y; y < topLeft.y + height; y++)
+        for (int y = (int)bottomLeft.y - 1; y < bottomLeft.y + height + 1; y++)
         {
-            for (int x = (int)topLeft.x; x < topLeft.x + width; x++)
+            for (int x = (int)bottomLeft.x - 1; x < bottomLeft.x + width + 1; x++)
             {
                 if (allPositions.Contains(new Vector3(x,y,0f)))
                 {
@@ -117,107 +117,114 @@ public class BoardManager : MonoBehaviour
         
 
         rooms.Add(new Room(new Vector3(0, 0, 0), Random.Range(5, 14), Random.Range(5, 14)));
-
         int roomAttemptCounter = 100;
-        while (rooms.Count < roomGoal)
+        while (roomAttemptCounter > 0 && rooms.Count < roomGoal)
         {
             Border connection = borders[Random.Range(0, borders.Count)];
 
             if (connection.directionToAdd == 1)//add room above
             {
                 int left = Random.Range(1, 12);
-                int up = Random.Range(7, 15);
 
-                Vector3 topLeft = new Vector3(connection.position.x - left,
-                                              connection.position.y - up, 0f);
+                Vector3 bottomLeft = new Vector3(connection.position.x - left, connection.position.y + 2, 0f);
 
+                int height = Random.Range(5, 14);
                 int width;
                 if (left + 2 < 5)
                     width = Random.Range(5, 14);
                 else
                     width = Random.Range(left + 2, 14);
 
-                int height = up - 1;
-
-                if (checkSpace(topLeft, width, height))
+                if (checkSpace(bottomLeft, width, height))
                 {
-                    rooms.Add(new Room(topLeft, width, height));
+                    rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    borders.Remove(connection);
                 }
                 else
+                {
                     roomAttemptCounter--;
+                }
+                    
             }
             else if (connection.directionToAdd == 2)//add room right
             {
-                int up = Random.Range(1, 12);
+                int down = Random.Range(1, 12);
 
-                Vector3 topLeft = new Vector3(connection.position.x + 2, connection.position.y - up, 0f);
+                Vector3 bottomLeft = new Vector3(connection.position.x + 2, connection.position.y - down, 0f);
 
                 int width = Random.Range(5, 14);
-
                 int height;
-
-                if (up + 2 < 5)
+                if (down + 2 < 5)
                     height = Random.Range(5, 14);
                 else
-                    height = Random.Range(up + 2, 14);
+                    height = Random.Range(down + 2, 14);
 
-                if (checkSpace(topLeft, width, height))
+                if (checkSpace(bottomLeft, width, height))
                 {
-                    rooms.Add(new Room(topLeft, width, height));
+                    rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    borders.Remove(connection);
                 }
                 else
+                {
                     roomAttemptCounter--;
+                }
             }
             else if (connection.directionToAdd == 3)//add room below
             {
                 int left = Random.Range(1, 12);
+                int down = Random.Range(6, 15);
 
-                Vector3 topLeft = new Vector3(connection.position.x + 2, connection.position.y - left, 0f);
+                Vector3 bottomLeft = new Vector3(connection.position.x - left, connection.position.y - down, 0f);
 
-                int height = Random.Range(5, 14);
+                int height = down - 1;
 
                 int width;
-
                 if (left + 2 < 5)
                     width = Random.Range(5, 14);
                 else
                     width = Random.Range(left + 2, 14);
-
-                if (checkSpace(topLeft, width, height))
+                
+                if (checkSpace(bottomLeft, width, height))
                 {
-                    rooms.Add(new Room(topLeft, width, height));
+                    rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    borders.Remove(connection);
                 }
                 else
+                {
                     roomAttemptCounter--;
+                }
             }
             else if (connection.directionToAdd == 4)//add room left
             {
-                int left = Random.Range(7, 15);
-                int up = Random.Range(1, 12);
+                int left = Random.Range(6, 15);
+                int down = Random.Range(1, 12);
 
-                Vector3 topLeft = new Vector3(connection.position.x - left,
-                                              connection.position.y - up, 0f);
-
-                int height;
-                if (up + 2 < 5)
-                    height = Random.Range(5, 14);
-                else
-                    height = Random.Range(up + 2, 14);
+                Vector3 bottomLeft = new Vector3(connection.position.x - left, connection.position.y - down, 0f);
 
                 int width = left - 1;
-
-                if (checkSpace(topLeft, width, height))
+                int height;
+                if (down + 2 < 5)
+                    height = Random.Range(5, 14);
+                else
+                    height = Random.Range(down + 2, 14);
+                
+                if (checkSpace(bottomLeft, width, height))
                 {
-                    rooms.Add(new Room(topLeft, width, height));
+                    rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    borders.Remove(connection);
                 }
                 else
+                {
                     roomAttemptCounter--;
+                }
             }
         }
+        Debug.Log("Level " + level);
+        Debug.Log("Room count:  " + rooms.Count);
         
         foreach (Room room in rooms)
         {
@@ -237,9 +244,26 @@ public class BoardManager : MonoBehaviour
         }
         foreach (Border border in connections)
         {
-            GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+            GameObject toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
             GameObject instance = Instantiate(toInstantiate, border.position, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
+
+            toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+
+            if (border.directionToAdd == 1 || border.directionToAdd == 3)
+            {
+                GameObject newInstance = Instantiate(toInstantiate, 
+                    new Vector3(border.position.x, border.position.y+1, 0f), Quaternion.identity) as GameObject;
+                GameObject newerInstance = Instantiate(toInstantiate,
+                    new Vector3(border.position.x, border.position.y - 1, 0f), Quaternion.identity) as GameObject;
+            }
+            else if (border.directionToAdd == 2 || border.directionToAdd == 4)
+            {
+                GameObject newInstance = Instantiate(toInstantiate,
+    new Vector3(border.position.x+1, border.position.y, 0f), Quaternion.identity) as GameObject;
+                GameObject newerInstance = Instantiate(toInstantiate,
+                    new Vector3(border.position.x-1, border.position.y, 0f), Quaternion.identity) as GameObject;
+            }
         }
     }
 

@@ -1,23 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using System.Collections.Generic;       //Allows us to use Lists. 
-    
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour 
 {
-    public static GameManager instance = null;
+
     public BoardManager boardScript;
 
+<<<<<<< HEAD
     private int level = 15;
+=======
+    private int level = 1;
+>>>>>>> parent of 26cd5e3... Map generation code
 
     void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         InitGame();
     }
@@ -27,8 +23,13 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene(level);
     }
 
-    void Update()
-    {
-
-    }
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 }

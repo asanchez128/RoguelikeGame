@@ -8,9 +8,13 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
-
+    const int MAP_EDGE = 50;
+    
+    private Transform boardHolder;
+    
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
+<<<<<<< HEAD
     public GameObject[] stairTiles;
 
     public static List<Level> levels = new List<Level>();
@@ -48,28 +52,22 @@ public class BoardManager : MonoBehaviour
     }
 
     public class Border
-    {
-        public Vector3 position;
-        public int directionToAdd;
+=======
+    //public GameObject[] itemTiles;
+    //public GameObject[] enemyTiles;
 
-        public Border(Vector3 pos, int dir)
-        {
-            position = pos;
-            directionToAdd = dir;
-        }
-    }
+    private List <Vector3> gridPositions = new List <Vector3> ();
 
-    public class Room
+    void InitialiseList()
+>>>>>>> parent of 26cd5e3... Map generation code
     {
-        public List<Vector3> floorSpaces;
-        public List<Vector3> wallSpaces;
-        public Room(Vector3 pos, int width, int height)
+        gridPositions.Clear();
+
+        for (int x = 0; x < 13; x++) //test values for debug room
         {
-            floorSpaces = new List<Vector3>();
-            wallSpaces = new List<Vector3>();
-            
-            for (int y = (int)pos.y; y < pos.y + height; y++)
+            for (int y = 0; y < 13; y++)
             {
+<<<<<<< HEAD
                 for (int x = (int)pos.x; x < pos.x + width; x++)
                 {
                     if ((x == pos.x || x == pos.x + width - 1) || (y == pos.y || y == pos.y + height - 1))
@@ -113,9 +111,18 @@ public class BoardManager : MonoBehaviour
     }
 
     bool checkSpace(Vector3 bottomLeft, int width, int height)
+=======
+                gridPositions.Add(new Vector3(x, y, 0f));
+            }
+        }
+    }
+    void BoardSetup()
+>>>>>>> parent of 26cd5e3... Map generation code
     {
-        bool result = true;
+        //Instantiate Board and set boardHolder to its transform
+        boardHolder = new GameObject("Board").transform;
 
+<<<<<<< HEAD
         for (int y = (int)bottomLeft.y - 1; y < bottomLeft.y + height + 1; y++)
         {
             for (int x = (int)bottomLeft.x - 1; x < bottomLeft.x + width + 1; x++)
@@ -357,3 +364,33 @@ public class BoardManager : MonoBehaviour
 
     }
 }
+=======
+
+        for (int x = 0; x < 13; x++)
+        {
+            for (int y = 0; y < 13; y++)
+            {
+
+                GameObject toInstantiate = floorTiles[0]; //todo: tile selection process
+
+                if (x == 0 || x == 12 || y == 0 || y == 12)
+                    toInstantiate = wallTiles[0];
+
+                //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+                GameObject instance =
+                    Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                //Set the parent of the new instance to boardHolder
+                instance.transform.SetParent(boardHolder);
+            }
+        }
+    }
+
+    public void SetupScene (int level)
+    {
+        BoardSetup ();
+            
+        InitialiseList ();
+    }
+}
+>>>>>>> parent of 26cd5e3... Map generation code

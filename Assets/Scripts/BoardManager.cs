@@ -13,8 +13,13 @@ public class BoardManager : MonoBehaviour
     public GameObject[] wallTiles;
     public GameObject[] stairTiles;
 
+    public static List<Level> levels = new List<Level>();
+
     public static List<Vector3> floors = new List<Vector3>();
     public static List<Vector3> walls = new List<Vector3>();
+    public static Vector3 exit = new Vector3();
+    public static Vector3 entrance = new Vector3();
+
     public static List<Border> borders = new List<Border>();
     public static List<Border> connections = new List<Border>();
 
@@ -23,6 +28,24 @@ public class BoardManager : MonoBehaviour
     public static List<Room> rooms = new List<Room>();
 
     private Transform boardHolder;
+
+    public class Level
+    {
+        public int levelNumber;
+        public List<Vector3> levelFloors;
+        public List<Vector3> levelWalls;
+        public Vector3 levelExitStair;
+        public Vector3 levelEntranceStair;
+
+        public Level(int levelNum)
+        {
+            levelNumber = levelNum;
+            levelFloors = floors;
+            levelWalls = walls;
+            levelExitStair = exit;
+            levelEntranceStair = entrance;
+        }
+    }
 
     public class Border
     {
@@ -122,6 +145,10 @@ public class BoardManager : MonoBehaviour
                         floors.Add(hallway);
                     else
                         walls.Add(hallway);
+                    if (!allPositions.Contains(hallway))
+                    {
+                        allPositions.Add(hallway);
+                    }
                 }
             }
         }
@@ -265,11 +292,7 @@ public class BoardManager : MonoBehaviour
     {
         int roomIndex = Random.Range(0, rooms.Count);
         int floorIndex = Random.Range(0, rooms[roomIndex].floorSpaces.Count);
-        Vector3 exit = rooms[roomIndex].floorSpaces[floorIndex];
-
-        GameObject toInstantiate = stairTiles[0];
-        GameObject instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
-        instance.transform.SetParent(boardHolder);
+        exit = rooms[roomIndex].floorSpaces[floorIndex];
 
         int newRoomIndex = Random.Range(0, rooms.Count);
 
@@ -282,12 +305,7 @@ public class BoardManager : MonoBehaviour
         }
         
         floorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
-        exit = rooms[newRoomIndex].floorSpaces[floorIndex];
-
-        toInstantiate = stairTiles[1];
-
-        instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
-        instance.transform.SetParent(boardHolder);
+        entrance = rooms[newRoomIndex].floorSpaces[floorIndex];
     }
 
     void DisplayScene()
@@ -304,19 +322,36 @@ public class BoardManager : MonoBehaviour
             GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
         }
+        GameObject exitStair = stairTiles[0];
+        GameObject exStair = Instantiate(exitStair, exit, Quaternion.identity) as GameObject;
+        exStair.transform.SetParent(boardHolder);
+
+        GameObject entranceStair = stairTiles[1];
+        GameObject enStair = Instantiate(entranceStair, entrance, Quaternion.identity) as GameObject;
+        enStair.transform.SetParent(boardHolder);
     }
 
-    public void SetupScene(int level)
+    public void SetupScene(int levelNumber)
     {
         floors.Clear();
         walls.Clear();
-        borders.Clear();
-        rooms.Clear();
-        allPositions.Clear();
-        connections.Clear();
 
-        BuildRooms(level);
+        borders.Clear();
+        connections.Clear();
+        
+        rooms.Clear();
+        
+        allPositions.Clear();
+
+        
+
+        BuildRooms(levelNumber);
         AddStairs();
+
+        levels.Add(new Level(levelNumber));
+
+
+
         DisplayScene();
         
 

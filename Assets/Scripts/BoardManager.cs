@@ -11,6 +11,7 @@ public class BoardManager : MonoBehaviour
 
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
+    public GameObject[] stairTiles;
 
     public static List<Vector3> floors = new List<Vector3>();
     public static List<Vector3> walls = new List<Vector3>();
@@ -51,6 +52,7 @@ public class BoardManager : MonoBehaviour
                     if ((x == pos.x || x == pos.x + width - 1) || (y == pos.y || y == pos.y + height - 1))
                     {
                         wallSpaces.Add(new Vector3(x, y, 0f));
+                        walls.Add(new Vector3(x, y, 0f));
                         allPositions.Add(new Vector3(x, y, 0f));
 
                         if (y > pos.y && y < pos.y + height - 1)
@@ -79,6 +81,7 @@ public class BoardManager : MonoBehaviour
                     else
                     {
                         floorSpaces.Add(new Vector3(x, y, 0f));
+                        floors.Add(new Vector3(x, y, 0f));
                         allPositions.Add(new Vector3(x, y, 0f));
                     }
                 }
@@ -86,7 +89,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public bool checkSpace(Vector3 bottomLeft, int width, int height)
+    bool checkSpace(Vector3 bottomLeft, int width, int height)
     {
         bool result = true;
 
@@ -104,20 +107,49 @@ public class BoardManager : MonoBehaviour
             return result;
     }
 
-    public void SetupScene(int level)
+    void BuildConnection(Border connection)
     {
-        floors.Clear();
-        walls.Clear();
-        borders.Clear();
-        rooms.Clear();
-        allPositions.Clear();
-        connections.Clear();
+        if (connection.directionToAdd == 1 || connection.directionToAdd == 3)
+        {
+            for (int y = (int)connection.position.y - 2; y < connection.position.y + 3; y++)
+            {
+                for (int x = (int)connection.position.x - 1; x < connection.position.x + 2; x++)
+                {
+                    Vector3 hallway = new Vector3(x, y, 0f);
+                    if (walls.Contains(hallway))
+                        walls.Remove(hallway);
+                    if (x == connection.position.x)
+                        floors.Add(hallway);
+                    else
+                        walls.Add(hallway);
+                }
+            }
+        }
+        else if (connection.directionToAdd == 2 || connection.directionToAdd == 4)
+        {
+            for (int y = (int)connection.position.y - 1; y < connection.position.y + 2; y++)
+            {
+                for (int x = (int)connection.position.x - 2; x < connection.position.x + 3; x++)
+                {
+                    Vector3 hallway = new Vector3(x, y, 0f);
+                    if (walls.Contains(hallway))
+                        walls.Remove(hallway);
+                    if (y == connection.position.y)
+                        floors.Add(hallway);
+                    else
+                        walls.Add(hallway);
+                }
+            }
+        }
+    }
 
-        int roomGoal = Random.Range(level, level*2);
-        
+    void BuildRooms(int level)
+    {
+        int roomGoal = Random.Range(level, level * 2 + 1);
+
 
         rooms.Add(new Room(new Vector3(0, 0, 0), Random.Range(5, 14), Random.Range(5, 14)));
-        int roomAttemptCounter = 100;
+        int roomAttemptCounter = 500;
         while (roomAttemptCounter > 0 && rooms.Count < roomGoal)
         {
             Border connection = borders[Random.Range(0, borders.Count)];
@@ -139,13 +171,14 @@ public class BoardManager : MonoBehaviour
                 {
                     rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    BuildConnection(connection);
                     borders.Remove(connection);
                 }
                 else
                 {
                     roomAttemptCounter--;
                 }
-                    
+
             }
             else if (connection.directionToAdd == 2)//add room right
             {
@@ -164,6 +197,7 @@ public class BoardManager : MonoBehaviour
                 {
                     rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    BuildConnection(connection);
                     borders.Remove(connection);
                 }
                 else
@@ -185,11 +219,12 @@ public class BoardManager : MonoBehaviour
                     width = Random.Range(5, 14);
                 else
                     width = Random.Range(left + 2, 14);
-                
+
                 if (checkSpace(bottomLeft, width, height))
                 {
                     rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    BuildConnection(connection);
                     borders.Remove(connection);
                 }
                 else
@@ -210,11 +245,12 @@ public class BoardManager : MonoBehaviour
                     height = Random.Range(5, 14);
                 else
                     height = Random.Range(down + 2, 14);
-                
+
                 if (checkSpace(bottomLeft, width, height))
                 {
                     rooms.Add(new Room(bottomLeft, width, height));
                     connections.Add(connection);
+                    BuildConnection(connection);
                     borders.Remove(connection);
                 }
                 else
@@ -223,48 +259,66 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Level " + level);
-        Debug.Log("Room count:  " + rooms.Count);
-        
-        foreach (Room room in rooms)
-        {
-            foreach(Vector3 wall in room.wallSpaces)
-            {
-                GameObject toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
-                GameObject instance = Instantiate(toInstantiate, wall, Quaternion.identity) as GameObject;
-                instance.transform.SetParent(boardHolder);
+    }
 
-            }
-            foreach(Vector3 floor in room.floorSpaces)
+    void AddStairs()
+    {
+        int roomIndex = Random.Range(0, rooms.Count);
+        int floorIndex = Random.Range(0, rooms[roomIndex].floorSpaces.Count);
+        Vector3 exit = rooms[roomIndex].floorSpaces[floorIndex];
+
+        GameObject toInstantiate = stairTiles[0];
+        GameObject instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
+        instance.transform.SetParent(boardHolder);
+
+        int newRoomIndex = Random.Range(0, rooms.Count);
+
+        if (rooms.Count > 1)
+        {
+            while(newRoomIndex==roomIndex)
             {
-                GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-                GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
-                instance.transform.SetParent(boardHolder);
+                newRoomIndex = Random.Range(0, rooms.Count);
             }
         }
-        foreach (Border border in connections)
+        
+        floorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
+        exit = rooms[newRoomIndex].floorSpaces[floorIndex];
+
+        toInstantiate = stairTiles[1];
+
+        instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
+        instance.transform.SetParent(boardHolder);
+    }
+
+    void DisplayScene()
+    {
+        foreach(Vector3 wall in walls)
         {
             GameObject toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
-            GameObject instance = Instantiate(toInstantiate, border.position, Quaternion.identity) as GameObject;
+            GameObject instance = Instantiate(toInstantiate, wall, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
-
-            toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-
-            if (border.directionToAdd == 1 || border.directionToAdd == 3)
-            {
-                GameObject newInstance = Instantiate(toInstantiate, 
-                    new Vector3(border.position.x, border.position.y+1, 0f), Quaternion.identity) as GameObject;
-                GameObject newerInstance = Instantiate(toInstantiate,
-                    new Vector3(border.position.x, border.position.y - 1, 0f), Quaternion.identity) as GameObject;
-            }
-            else if (border.directionToAdd == 2 || border.directionToAdd == 4)
-            {
-                GameObject newInstance = Instantiate(toInstantiate,
-    new Vector3(border.position.x+1, border.position.y, 0f), Quaternion.identity) as GameObject;
-                GameObject newerInstance = Instantiate(toInstantiate,
-                    new Vector3(border.position.x-1, border.position.y, 0f), Quaternion.identity) as GameObject;
-            }
+        }
+        foreach(Vector3 floor in floors)
+        {
+            GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+            GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
+            instance.transform.SetParent(boardHolder);
         }
     }
 
+    public void SetupScene(int level)
+    {
+        floors.Clear();
+        walls.Clear();
+        borders.Clear();
+        rooms.Clear();
+        allPositions.Clear();
+        connections.Clear();
+
+        BuildRooms(level);
+        AddStairs();
+        DisplayScene();
+        
+
+    }
 }

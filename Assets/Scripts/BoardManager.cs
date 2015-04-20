@@ -67,7 +67,7 @@ public class BoardManager : MonoBehaviour
         {
             floorSpaces = new List<Vector3>();
             wallSpaces = new List<Vector3>();
-
+            
             for (int y = (int)pos.y; y < pos.y + height; y++)
             {
                 for (int x = (int)pos.x; x < pos.x + width; x++)
@@ -120,14 +120,14 @@ public class BoardManager : MonoBehaviour
         {
             for (int x = (int)bottomLeft.x - 1; x < bottomLeft.x + width + 1; x++)
             {
-                if (allPositions.Contains(new Vector3(x, y, 0f)))
+                if (allPositions.Contains(new Vector3(x,y,0f)))
                 {
                     result = false;
                 }
             }
         }
 
-        return result;
+            return result;
     }
 
     void BuildConnection(Border connection)
@@ -298,25 +298,25 @@ public class BoardManager : MonoBehaviour
 
         if (rooms.Count > 1)
         {
-            while (newRoomIndex == roomIndex)
+            while(newRoomIndex==roomIndex)
             {
                 newRoomIndex = Random.Range(0, rooms.Count);
             }
         }
-
+        
         floorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
         entrance = rooms[newRoomIndex].floorSpaces[floorIndex];
     }
 
     void DisplayScene()
     {
-        foreach (Vector3 wall in walls)
+        foreach(Vector3 wall in walls)
         {
             GameObject toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
             GameObject instance = Instantiate(toInstantiate, wall, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
         }
-        foreach (Vector3 floor in floors)
+        foreach(Vector3 floor in floors)
         {
             GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
             GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
@@ -338,12 +338,12 @@ public class BoardManager : MonoBehaviour
 
         borders.Clear();
         connections.Clear();
-
+        
         rooms.Clear();
-
+        
         allPositions.Clear();
 
-
+        
 
         BuildRooms(levelNumber);
         AddStairs();
@@ -353,7 +353,7 @@ public class BoardManager : MonoBehaviour
 
 
         DisplayScene();
-
+        
 
     }
 }

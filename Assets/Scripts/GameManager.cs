@@ -1,16 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour 
-{
+using System.Collections.Generic;       //Allows us to use Lists. 
 
+public class GameManager : MonoBehaviour
+{
+    public static GameManager instance = null;
     public BoardManager boardScript;
 
     private int level = 15;
 
-
     void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         InitGame();
     }
@@ -20,13 +27,8 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene(level);
     }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Update()
+    {
+
+    }
 }

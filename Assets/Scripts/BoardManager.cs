@@ -8,17 +8,18 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
-    const int MAP_EDGE = 50;
-    
-    private Transform boardHolder;
-    
+
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
-
     public GameObject[] stairTiles;
+
+    public static List<Level> levels = new List<Level>();
 
     public static List<Vector3> floors = new List<Vector3>();
     public static List<Vector3> walls = new List<Vector3>();
+    public static Vector3 exit = new Vector3();
+    public static Vector3 entrance = new Vector3();
+
     public static List<Border> borders = new List<Border>();
     public static List<Border> connections = new List<Border>();
 
@@ -28,16 +29,47 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;
 
-    public class Border
-
+    public class Level
     {
-        gridPositions.Clear();
+        public int levelNumber;
+        public List<Vector3> levelFloors;
+        public List<Vector3> levelWalls;
+        public Vector3 levelExitStair;
+        public Vector3 levelEntranceStair;
 
-        for (int x = 0; x < 13; x++) //test values for debug room
+        public Level(int levelNum)
         {
-            for (int y = 0; y < 13; y++)
-            {
+            levelNumber = levelNum;
+            levelFloors = floors;
+            levelWalls = walls;
+            levelExitStair = exit;
+            levelEntranceStair = entrance;
+        }
+    }
 
+    public class Border
+    {
+        public Vector3 position;
+        public int directionToAdd;
+
+        public Border(Vector3 pos, int dir)
+        {
+            position = pos;
+            directionToAdd = dir;
+        }
+    }
+
+    public class Room
+    {
+        public List<Vector3> floorSpaces;
+        public List<Vector3> wallSpaces;
+        public Room(Vector3 pos, int width, int height)
+        {
+            floorSpaces = new List<Vector3>();
+            wallSpaces = new List<Vector3>();
+
+            for (int y = (int)pos.y; y < pos.y + height; y++)
+            {
                 for (int x = (int)pos.x; x < pos.x + width; x++)
                 {
                     if ((x == pos.x || x == pos.x + width - 1) || (y == pos.y || y == pos.y + height - 1))
@@ -81,23 +113,21 @@ public class BoardManager : MonoBehaviour
     }
 
     bool checkSpace(Vector3 bottomLeft, int width, int height)
-
     {
-        //Instantiate Board and set boardHolder to its transform
-        boardHolder = new GameObject("Board").transform;
+        bool result = true;
 
         for (int y = (int)bottomLeft.y - 1; y < bottomLeft.y + height + 1; y++)
         {
             for (int x = (int)bottomLeft.x - 1; x < bottomLeft.x + width + 1; x++)
             {
-                if (allPositions.Contains(new Vector3(x,y,0f)))
+                if (allPositions.Contains(new Vector3(x, y, 0f)))
                 {
                     result = false;
                 }
             }
         }
 
-            return result;
+        return result;
     }
 
     void BuildConnection(Border connection)
@@ -115,6 +145,10 @@ public class BoardManager : MonoBehaviour
                         floors.Add(hallway);
                     else
                         walls.Add(hallway);
+                    if (!allPositions.Contains(hallway))
+                    {
+                        allPositions.Add(hallway);
+                    }
                 }
             }
         }
@@ -258,60 +292,68 @@ public class BoardManager : MonoBehaviour
     {
         int roomIndex = Random.Range(0, rooms.Count);
         int floorIndex = Random.Range(0, rooms[roomIndex].floorSpaces.Count);
-        Vector3 exit = rooms[roomIndex].floorSpaces[floorIndex];
-
-        GameObject toInstantiate = stairTiles[0];
-        GameObject instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
-        instance.transform.SetParent(boardHolder);
+        exit = rooms[roomIndex].floorSpaces[floorIndex];
 
         int newRoomIndex = Random.Range(0, rooms.Count);
 
         if (rooms.Count > 1)
         {
-            while(newRoomIndex==roomIndex)
+            while (newRoomIndex == roomIndex)
             {
                 newRoomIndex = Random.Range(0, rooms.Count);
             }
         }
-        
+
         floorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
-        exit = rooms[newRoomIndex].floorSpaces[floorIndex];
-
-        toInstantiate = stairTiles[1];
-
-        instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
-        instance.transform.SetParent(boardHolder);
+        entrance = rooms[newRoomIndex].floorSpaces[floorIndex];
     }
 
     void DisplayScene()
     {
-        foreach(Vector3 wall in walls)
+        foreach (Vector3 wall in walls)
         {
             GameObject toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
             GameObject instance = Instantiate(toInstantiate, wall, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
         }
-        foreach(Vector3 floor in floors)
+        foreach (Vector3 floor in floors)
         {
             GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
             GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
         }
+        GameObject exitStair = stairTiles[0];
+        GameObject exStair = Instantiate(exitStair, exit, Quaternion.identity) as GameObject;
+        exStair.transform.SetParent(boardHolder);
+
+        GameObject entranceStair = stairTiles[1];
+        GameObject enStair = Instantiate(entranceStair, entrance, Quaternion.identity) as GameObject;
+        enStair.transform.SetParent(boardHolder);
     }
 
-    public void SetupScene(int level)
+    public void SetupScene(int levelNumber)
     {
         floors.Clear();
         walls.Clear();
+
         borders.Clear();
-        rooms.Clear();
-        allPositions.Clear();
         connections.Clear();
 
-        BuildRooms(level);
+        rooms.Clear();
+
+        allPositions.Clear();
+
+
+
+        BuildRooms(levelNumber);
         AddStairs();
+
+        levels.Add(new Level(levelNumber));
+
+
+
         DisplayScene();
-        
+
 
     }
 }

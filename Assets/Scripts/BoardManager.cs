@@ -14,16 +14,11 @@ public class BoardManager : MonoBehaviour
     
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
-<<<<<<< HEAD
-    public GameObject[] stairTiles;
 
-    public static List<Level> levels = new List<Level>();
+    public GameObject[] stairTiles;
 
     public static List<Vector3> floors = new List<Vector3>();
     public static List<Vector3> walls = new List<Vector3>();
-    public static Vector3 exit = new Vector3();
-    public static Vector3 entrance = new Vector3();
-
     public static List<Border> borders = new List<Border>();
     public static List<Border> connections = new List<Border>();
 
@@ -33,33 +28,8 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;
 
-    public class Level
-    {
-        public int levelNumber;
-        public List<Vector3> levelFloors;
-        public List<Vector3> levelWalls;
-        public Vector3 levelExitStair;
-        public Vector3 levelEntranceStair;
-
-        public Level(int levelNum)
-        {
-            levelNumber = levelNum;
-            levelFloors = floors;
-            levelWalls = walls;
-            levelExitStair = exit;
-            levelEntranceStair = entrance;
-        }
-    }
-
     public class Border
-=======
-    //public GameObject[] itemTiles;
-    //public GameObject[] enemyTiles;
 
-    private List <Vector3> gridPositions = new List <Vector3> ();
-
-    void InitialiseList()
->>>>>>> parent of 26cd5e3... Map generation code
     {
         gridPositions.Clear();
 
@@ -67,7 +37,7 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < 13; y++)
             {
-<<<<<<< HEAD
+
                 for (int x = (int)pos.x; x < pos.x + width; x++)
                 {
                     if ((x == pos.x || x == pos.x + width - 1) || (y == pos.y || y == pos.y + height - 1))
@@ -111,18 +81,11 @@ public class BoardManager : MonoBehaviour
     }
 
     bool checkSpace(Vector3 bottomLeft, int width, int height)
-=======
-                gridPositions.Add(new Vector3(x, y, 0f));
-            }
-        }
-    }
-    void BoardSetup()
->>>>>>> parent of 26cd5e3... Map generation code
+
     {
         //Instantiate Board and set boardHolder to its transform
         boardHolder = new GameObject("Board").transform;
 
-<<<<<<< HEAD
         for (int y = (int)bottomLeft.y - 1; y < bottomLeft.y + height + 1; y++)
         {
             for (int x = (int)bottomLeft.x - 1; x < bottomLeft.x + width + 1; x++)
@@ -152,10 +115,6 @@ public class BoardManager : MonoBehaviour
                         floors.Add(hallway);
                     else
                         walls.Add(hallway);
-                    if (!allPositions.Contains(hallway))
-                    {
-                        allPositions.Add(hallway);
-                    }
                 }
             }
         }
@@ -299,7 +258,11 @@ public class BoardManager : MonoBehaviour
     {
         int roomIndex = Random.Range(0, rooms.Count);
         int floorIndex = Random.Range(0, rooms[roomIndex].floorSpaces.Count);
-        exit = rooms[roomIndex].floorSpaces[floorIndex];
+        Vector3 exit = rooms[roomIndex].floorSpaces[floorIndex];
+
+        GameObject toInstantiate = stairTiles[0];
+        GameObject instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
+        instance.transform.SetParent(boardHolder);
 
         int newRoomIndex = Random.Range(0, rooms.Count);
 
@@ -312,7 +275,12 @@ public class BoardManager : MonoBehaviour
         }
         
         floorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
-        entrance = rooms[newRoomIndex].floorSpaces[floorIndex];
+        exit = rooms[newRoomIndex].floorSpaces[floorIndex];
+
+        toInstantiate = stairTiles[1];
+
+        instance = Instantiate(toInstantiate, exit, Quaternion.identity) as GameObject;
+        instance.transform.SetParent(boardHolder);
     }
 
     void DisplayScene()
@@ -329,68 +297,21 @@ public class BoardManager : MonoBehaviour
             GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
         }
-        GameObject exitStair = stairTiles[0];
-        GameObject exStair = Instantiate(exitStair, exit, Quaternion.identity) as GameObject;
-        exStair.transform.SetParent(boardHolder);
-
-        GameObject entranceStair = stairTiles[1];
-        GameObject enStair = Instantiate(entranceStair, entrance, Quaternion.identity) as GameObject;
-        enStair.transform.SetParent(boardHolder);
     }
 
-    public void SetupScene(int levelNumber)
+    public void SetupScene(int level)
     {
         floors.Clear();
         walls.Clear();
-
         borders.Clear();
-        connections.Clear();
-        
         rooms.Clear();
-        
         allPositions.Clear();
+        connections.Clear();
 
-        
-
-        BuildRooms(levelNumber);
+        BuildRooms(level);
         AddStairs();
-
-        levels.Add(new Level(levelNumber));
-
-
-
         DisplayScene();
         
 
     }
 }
-=======
-
-        for (int x = 0; x < 13; x++)
-        {
-            for (int y = 0; y < 13; y++)
-            {
-
-                GameObject toInstantiate = floorTiles[0]; //todo: tile selection process
-
-                if (x == 0 || x == 12 || y == 0 || y == 12)
-                    toInstantiate = wallTiles[0];
-
-                //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-                GameObject instance =
-                    Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-
-                //Set the parent of the new instance to boardHolder
-                instance.transform.SetParent(boardHolder);
-            }
-        }
-    }
-
-    public void SetupScene (int level)
-    {
-        BoardSetup ();
-            
-        InitialiseList ();
-    }
-}
->>>>>>> parent of 26cd5e3... Map generation code

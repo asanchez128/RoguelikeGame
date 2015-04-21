@@ -12,6 +12,7 @@ public class BoardManager : MonoBehaviour
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] stairTiles;
+    public GameObject[] itemTiles;
 
     public static List<Level> levels = new List<Level>();
 

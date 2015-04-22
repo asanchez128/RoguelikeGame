@@ -314,22 +314,44 @@ public class BoardManager : MonoBehaviour
         foreach(Vector3 wall in walls)
         {
             GameObject toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
-            GameObject instance = Instantiate(toInstantiate, wall, Quaternion.identity) as GameObject;
-            instance.transform.SetParent(boardHolder);
+            toInstantiate = Instantiate(toInstantiate, wall, Quaternion.identity) as GameObject;
+            toInstantiate.transform.SetParent(boardHolder);
         }
         foreach(Vector3 floor in floors)
         {
             GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-            GameObject instance = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
-            instance.transform.SetParent(boardHolder);
+            toInstantiate = Instantiate(toInstantiate, floor, Quaternion.identity) as GameObject;
+            toInstantiate.transform.SetParent(boardHolder);
         }
         GameObject exitStair = stairTiles[0];
-        GameObject exStair = Instantiate(exitStair, exit, Quaternion.identity) as GameObject;
-        exStair.transform.SetParent(boardHolder);
+        exitStair = Instantiate(exitStair, exit, Quaternion.identity) as GameObject;
+        exitStair.transform.SetParent(boardHolder);
 
         GameObject entranceStair = stairTiles[1];
-        GameObject enStair = Instantiate(entranceStair, entrance, Quaternion.identity) as GameObject;
-        enStair.transform.SetParent(boardHolder);
+        entranceStair = Instantiate(entranceStair, entrance, Quaternion.identity) as GameObject;
+        entranceStair.transform.SetParent(boardHolder);
+    }
+
+    void AddItems()
+    {
+        int itemNumber = Random.Range(floors.Count / 50, floors.Count / 30);
+
+        List<Vector3> itemSpots = new List<Vector3>();
+        itemSpots.Add(exit);
+        itemSpots.Add(entrance);
+
+        while (itemNumber > 0)
+        {
+            Vector3 pos = floors[Random.Range(0, floors.Count)];
+
+            if (!itemSpots.Contains(pos))
+            {
+                GameObject item = itemTiles[Random.Range(0, itemTiles.Length)];
+                item = Instantiate(item, pos, Quaternion.identity) as GameObject;
+                itemSpots.Add(pos);
+                itemNumber--;
+            }
+        }
     }
 
     public void SetupScene(int levelNumber)
@@ -348,6 +370,8 @@ public class BoardManager : MonoBehaviour
 
         BuildRooms(levelNumber);
         AddStairs();
+        AddItems();
+
 
         levels.Add(new Level(levelNumber));
 

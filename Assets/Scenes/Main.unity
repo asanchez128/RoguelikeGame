@@ -94,35 +94,35 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalPosition.x
       value: .0338012204
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalPosition.y
       value: -5.8254227e-07
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 483748, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+    - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}

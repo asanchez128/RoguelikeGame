@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
     public int playerFoodPoints = 300;
     public int playerHealth = 100;
+    public bool playersTurn = true; 
     [HideInInspector]
 
     private int level = 15;
@@ -37,6 +38,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+       //Check that playersTurn or enemiesMoving or doingSetup are not currently true.
+       if (playersTurn)
+
+          //If any of these are true, return and do not start MoveEnemies.
+          return;
 
     }
+      
 }

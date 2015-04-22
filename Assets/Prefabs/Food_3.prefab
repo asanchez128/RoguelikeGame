@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6157186}
   m_Layer: 0
   m_Name: Food_3
-  m_TagString: Food
+  m_TagString: Food3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

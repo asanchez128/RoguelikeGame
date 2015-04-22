@@ -9,9 +9,7 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
     public int playerFoodPoints = 300;
     public int playerHealth = 100;
-    [HideInInspector]
-
-    private int level = 15;
+    public int level = 15;
 
     void Awake()
     {

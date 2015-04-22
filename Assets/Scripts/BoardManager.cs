@@ -334,7 +334,11 @@ public class BoardManager : MonoBehaviour
 
     void AddItems()
     {
-        int itemNumber = Random.Range(floors.Count / 50, floors.Count / 30);
+        int itemNumber = Random.Range(0,floors.Count / 100);
+        if((floors.Count / 100) < 1)
+        {
+            itemNumber = Random.Range(0, 2);
+        }
 
         List<Vector3> itemSpots = new List<Vector3>();
         itemSpots.Add(exit);
@@ -349,8 +353,9 @@ public class BoardManager : MonoBehaviour
                 GameObject item = itemTiles[Random.Range(0, itemTiles.Length)];
                 item = Instantiate(item, pos, Quaternion.identity) as GameObject;
                 itemSpots.Add(pos);
-                itemNumber--;
+                
             }
+            itemNumber--;
         }
     }
 

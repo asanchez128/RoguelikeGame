@@ -2,13 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerController : MovingObject {
+public class PlayerController : MonoBehaviour {
 
-   private int food;     
+   private int food;
+   private Vector2 pos;
+   private bool moving = false;
+  
 	// Use this for initialization
 	void Start () {
       food = GameManager.instance.playerFoodPoints;
-      base.Start();
+      pos = transform.position;
+      Camera.main.orthographicSize = Screen.height / 2 * 1 / 32;
+
+      
 	}
 
    private void OnDisable()
@@ -16,67 +22,54 @@ public class PlayerController : MovingObject {
       //When Player object is disabled, store the current local food total in the GameManager so it can be re-loaded in next level.
       GameManager.instance.playerFoodPoints = food;
    }
-	
-	// Update is called once per frame
-	void Update () {
-      if (!GameManager.instance.playersTurn) return;
-
-      int horizontal = 0;     //Used to store the horizontal move direction.
-      int vertical = 0;       //Used to store the vertical move direction.
-
-
-      //Get input from the input manager, round it to an integer and store in horizontal to set x axis move direction
-      horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-
-      //Get input from the input manager, round it to an integer and store in vertical to set y axis move direction
-      vertical = (int)(Input.GetAxisRaw("Vertical"));
-
-      //Check if moving horizontally, if so set vertical to zero.
-      if (horizontal != 0)
-      {
-         vertical = 0;
-      }
-
-      //Check if we have a non-zero value for horizontal or vertical
-      if (horizontal != 0 || vertical != 0)
-      {
-         //Call AttemptMove passing in the generic parameter Wall, since that is what Player may interact with if they encounter one (by attacking it)
-         //Pass in horizontal and vertical as parameters to specify the direction to move Player in.
-         AttemptMove<Wall>(horizontal, vertical);
-      }
-	}
-
-   protected override void AttemptMove<T>(int xDir, int yDir)
+   void Update()
    {
-      //Every time player moves, subtract from food points total.
-      food--;
 
-      //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
-      base.AttemptMove<T>(xDir, yDir);
+      CheckInput();
 
-      //Hit allows us to reference the result of the Linecast done in Move.
-      RaycastHit2D hit;
-
-      //If Move returns true, meaning Player was able to move into an empty space.
-      if (Move(xDir, yDir, out hit))
+      if (moving)
       {
-         //Call RandomizeSfx of SoundManager to play the move sound, passing in two audio clips to choose from.
+         // pos is changed when there's input from the player
+         transform.position = pos;
+         moving = false;
+      }
+   }
+   private void CheckInput()
+   {
+
+      // WASD control
+      // We add the direction to our position,
+      if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+      // this moves the character 1 unit (32 pixels)
+      {
+         pos += Vector2.right;
+         moving = true;
+         //ExecuteNPCAI();
       }
 
-      //Since the player has moved and lost food points, check if the game has ended.
-      CheckIfGameOver();
+         // For left, we have to subtract the direction
+      else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+      {
+         pos -= Vector2.right;
+         moving = true;
+         // ExecuteNPCAI();
+      }
+      else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+      {
+         pos += Vector2.up;
+         moving = true;
+        // ExecuteNPCAI();
+      }
 
-      //Set the playersTurn boolean of GameManager to false now that players turn is over.
-      GameManager.instance.playersTurn = false;
+         // Same as for the left, subtraction for down
+      else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+      {
+         pos -= Vector2.up;
+         moving = true;
+         // ExecuteNPCAI();
+      }
    }
-
-   protected override void OnCantMove<T>(T component)
-   {
-      //Set hitWall to equal the component passed in as a parameter.
-      Wall hitWall = component as Wall;
-
-   }
-
+   
    private void OnTriggerEnter2D(Collider2D other)
    {
       //Check if the tag of the trigger collided with is Exit.

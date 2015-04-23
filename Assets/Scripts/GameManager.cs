@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
     public int playerFoodPoints = 300;
     public int playerHealth = 100;
-    public bool playersTurn = true; 
+    public bool playersTurn = true;
+    public GameObject PlayerObject;
     [HideInInspector]
 
-    private int level = 15;
+    private int level = 1;
 
     void Awake()
     {
@@ -23,12 +24,15 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
-        InitGame();
+        PlayerObject = GameObject.FindWithTag("Player");  
+       InitGame();
+        
     }
 
     void InitGame()
     {
         boardScript.SetupScene(level);
+       PlayerObject.transform.position = BoardManager.entrance;
     }
 
     public void GameOver()

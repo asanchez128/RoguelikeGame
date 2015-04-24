@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public bool playersTurn = true;
     public GameObject PlayerObject;
 
+    public int debugCounter = 0;
+
+    public List<MovingObject> actors;
+
     public int level = 1;
 
     void Awake()
@@ -23,15 +27,18 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
-        PlayerObject = GameObject.FindWithTag("Player");  
+        PlayerObject = GameObject.FindWithTag("Player");
+        actors = new List<MovingObject>();
         InitGame();
         
     }
 
     void InitGame()
     {
+        actors.Clear();
         boardScript.SetupScene(level);
         PlayerObject.transform.position = BoardManager.entrance;
+        
     }
 
     public void GameOver()
@@ -41,12 +48,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-       if (playersTurn)
-          return;
-       else
-       {
-           playersTurn = true;
-       }
+        if (playersTurn)
+            return;
+        else
+        {
+            debugCounter++;
+            if (debugCounter > 10)
+            {
+                debugCounter = 0;
+                playersTurn = true;
+            }
+        }
     }
       
 }

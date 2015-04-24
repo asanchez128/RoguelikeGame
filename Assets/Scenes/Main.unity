@@ -87,6 +87,14 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &948587858 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 158016, guid: b8f9ebb2ffe065a43b3211c22e3a3785, type: 2}
+  m_PrefabInternal: {fileID: 974420653}
+--- !u!4 &948587863 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 424544, guid: b8f9ebb2ffe065a43b3211c22e3a3785, type: 2}
+  m_PrefabInternal: {fileID: 974420653}
 --- !u!1001 &974420653
 Prefab:
   m_ObjectHideFlags: 0
@@ -124,7 +132,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 424544, guid: b8f9ebb2ffe065a43b3211c22e3a3785, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 21205340, guid: b8f9ebb2ffe065a43b3211c22e3a3785, type: 2}
       propertyPath: m_SortingLayerID
@@ -174,11 +182,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476976, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11415896, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: level
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11415896, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: playerFoodPoints
@@ -187,7 +195,7 @@ Prefab:
     - target: {fileID: 11415896, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: PlayerObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 948587858}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
   m_IsPrefabParent: 0
@@ -196,15 +204,15 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 948587863}
     m_Modifications:
     - target: {fileID: 449806, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.72315049
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 449806, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -5.75399494
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 449806, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -228,7 +236,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 449806, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044568, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
+      propertyPath: m_NormalizedViewPortRect.width
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044568, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044568, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044568, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044568, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
+      propertyPath: m_BackGroundColor.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}

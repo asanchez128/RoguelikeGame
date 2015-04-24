@@ -296,17 +296,26 @@ public class BoardManager : MonoBehaviour
         exit = rooms[roomIndex].floorSpaces[floorIndex];
 
         int newRoomIndex = Random.Range(0, rooms.Count);
-
+        int newFloorIndex;
         if (rooms.Count > 1)
         {
             while(newRoomIndex==roomIndex)
             {
                 newRoomIndex = Random.Range(0, rooms.Count);
             }
+            newFloorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
+        }
+        else
+        {
+            newFloorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
+
+            while(newFloorIndex == floorIndex)
+            {
+                newFloorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
+            }
         }
         
-        floorIndex = Random.Range(0, rooms[newRoomIndex].floorSpaces.Count);
-        entrance = rooms[newRoomIndex].floorSpaces[floorIndex];
+        entrance = rooms[newRoomIndex].floorSpaces[newFloorIndex];
     }
 
     void DisplayScene()

@@ -18,12 +18,14 @@ public class PlayerController : MovingObject
     private void OnDisable()
     {
         GameManager.instance.playerFoodPoints = food;
+        GameManager.instance.playerHealth = health;
     }
 
 
     private void Update()
     {
-        if (!GameManager.instance.playersTurn) return;
+        if (!GameManager.instance.playersTurn) 
+            return;
 
         int horizontal = 0;     //Used to store the horizontal move direction.
         int vertical = 0;       //Used to store the vertical move direction.
@@ -41,19 +43,19 @@ public class PlayerController : MovingObject
         if (horizontal != 0 || vertical != 0)
         {
             AttemptMove<Wall>(horizontal, vertical);
+            GameManager.instance.playersTurn = false;
         }
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        food--;
-
         base.AttemptMove<T>(xDir, yDir);
 
         RaycastHit2D hit;
 
         if (Move(xDir, yDir, out hit))
         {
+            food--;
         }
 
         CheckIfGameOver();
@@ -63,44 +65,59 @@ public class PlayerController : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-
+        //cry
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Exit")
         {
             Invoke("Restart", restartLevelDelay);
-
             enabled = false;
         }
         else if (other.tag == "Food1")
         {
+            food += 5;
+            if (food > 200)
+                food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food2")
         {
+            food += 10;
+            if (food > 200)
+                food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food3")
         {
+            food += 15;
+            if (food > 200)
+                food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food4")
         {
+            food += 20;
+            if (food > 200)
+                food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food5")
         {
+            food += 25;
+            if (food > 200)
+                food = 200;
             other.gameObject.SetActive(false);
         }
     }
     private void Restart()
     {
+        GameManager.instance.level++;
         Application.LoadLevel(Application.loadedLevel);
     }
-    public void LoseFood(int loss)
+    public void LoseHealth(int loss)
     {
-        food -= loss;
+        health -= loss;
 
         CheckIfGameOver();
     }

@@ -109,6 +109,7 @@ public class PlayerController : MovingObject
                 food = 200;
             other.gameObject.SetActive(false);
         }
+        
     }
     private void Restart()
     {

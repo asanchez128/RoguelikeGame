@@ -56,6 +56,8 @@ MonoBehaviour:
   - {fileID: 149128, guid: f6f9b9d86e4436242acf9f74bd4c1901, type: 2}
   - {fileID: 186624, guid: 2cb9492482f22d241adfd3a1c8768e5a, type: 2}
   - {fileID: 130434, guid: f801d4791b9a5a3449a1f4cd3ec7f187, type: 2}
+  enemyTiles:
+  - {fileID: 191990, guid: 8b1d40010f8eaec4685c23f0fb57d56d, type: 2}
 --- !u!114 &11415896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,9 +70,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
-  playerFoodPoints: 300
-  playerHealth: 100
-  level: 3
+  playersTurn: 1
+  PlayerObject: {fileID: 0}
+  turnDelay: .100000001
+  debugCounter: 0
+  actors: []
+  enemies: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

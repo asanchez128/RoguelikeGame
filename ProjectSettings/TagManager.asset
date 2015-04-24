@@ -11,6 +11,7 @@ TagManager:
   - Food3
   - Food4
   - Food5
+  - Enemy
   layers:
   - Default
   - TransparentFX

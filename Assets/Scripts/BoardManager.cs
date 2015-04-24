@@ -13,6 +13,7 @@ public class BoardManager : MonoBehaviour
     public GameObject[] wallTiles;
     public GameObject[] stairTiles;
     public GameObject[] itemTiles;
+   public GameObject[] enemyTiles;
 
     public static List<Level> levels = new List<Level>();
 
@@ -366,8 +367,46 @@ public class BoardManager : MonoBehaviour
             }
             itemNumber--;
         }
+
+       int enemiesNumber = 2;
+       while (enemiesNumber > 0)
+       {
+          Vector3 pos = floors[Random.Range(0, floors.Count)];
+
+          if (!itemSpots.Contains(pos))
+          {
+             GameObject item = enemyTiles[Random.Range(0, enemyTiles.Length)];
+             item = Instantiate(item, pos, Quaternion.identity) as GameObject;
+             itemSpots.Add(pos);
+          }
+          enemiesNumber--;
+       }
+
     }
 
+    void AddEnemies(GameObject[] tileArray, int minimum, int maximum)
+    {
+       //Choose a random number of objects to instantiate within the minimum and maximum limits
+       int objectCount = Random.Range(minimum, maximum + 1);
+
+       List<Vector3> itemSpots = new List<Vector3>();
+       itemSpots.Add(exit);
+       itemSpots.Add(entrance);
+
+       //Instantiate objects until the randomly chosen limit objectCount is reached
+       for (int i = 0; i < objectCount; i++)
+       {
+          Vector3 pos = floors[Random.Range(0, floors.Count)];
+
+          if (!itemSpots.Contains(pos))
+          {
+             GameObject item = itemTiles[Random.Range(0, itemTiles.Length)];
+             item = Instantiate(item, pos, Quaternion.identity) as GameObject;
+             itemSpots.Add(pos);
+
+          }
+       }
+    }
     public void SetupScene(int levelNumber)
     {
         floors.Clear();

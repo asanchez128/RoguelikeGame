@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public BoardManager boardScript;
-    public int playerFoodPoints = 200;
-    public int playerHealth = 100;
+    public static int playerFoodPoints = 1000;
+    public static int playerHealth = 100;
     public bool playersTurn = true;
     public GameObject PlayerObject;
 

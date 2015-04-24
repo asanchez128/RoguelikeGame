@@ -190,7 +190,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11415896, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: playerFoodPoints
-      value: 200
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 11415896, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: PlayerObject

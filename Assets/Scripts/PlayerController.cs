@@ -10,15 +10,15 @@ public class PlayerController : MovingObject
 
     protected override void Start()
     {
-        food = GameManager.instance.playerFoodPoints;
-        health = GameManager.instance.playerHealth;
+        food = GameManager.playerFoodPoints;
+        health = GameManager.playerHealth;
         base.Start();
     }
 
     private void OnDisable()
     {
-        GameManager.instance.playerFoodPoints = food;
-        GameManager.instance.playerHealth = health;
+        GameManager.playerFoodPoints = food;
+        GameManager.playerHealth = health;
     }
 
 

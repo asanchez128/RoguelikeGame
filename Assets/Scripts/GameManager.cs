@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     public List<MovingObject> actors;
 
-    public int level = 1;
+    public static int level = 1;
 
     void Awake()
     {

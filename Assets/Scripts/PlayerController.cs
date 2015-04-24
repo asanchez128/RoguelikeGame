@@ -112,7 +112,7 @@ public class PlayerController : MovingObject
     }
     private void Restart()
     {
-        GameManager.instance.level++;
+        GameManager.level++;
         Application.LoadLevel(Application.loadedLevel);
     }
     public void LoseHealth(int loss)

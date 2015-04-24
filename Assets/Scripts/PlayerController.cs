@@ -42,7 +42,7 @@ public class PlayerController : MovingObject
 
         if (horizontal != 0 || vertical != 0)
         {
-            AttemptMove<Wall>(horizontal, vertical);
+            AttemptMove<EnemyController>(horizontal, vertical);
             GameManager.instance.playersTurn = false;
         }
     }
@@ -65,7 +65,8 @@ public class PlayerController : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        //cry
+        component.gameObject.SetActive(false);//todo:  damage enemy
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -76,35 +77,35 @@ public class PlayerController : MovingObject
         }
         else if (other.tag == "Food1")
         {
-            food += 5;
+            food += 10;
             if (food > 200)
                 food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food2")
         {
-            food += 10;
+            food += 20;
             if (food > 200)
                 food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food3")
         {
-            food += 15;
+            food += 30;
             if (food > 200)
                 food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food4")
         {
-            food += 20;
+            food += 40;
             if (food > 200)
                 food = 200;
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Food5")
         {
-            food += 25;
+            food += 50;
             if (food > 200)
                 food = 200;
             other.gameObject.SetActive(false);

@@ -7,13 +7,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public BoardManager boardScript;
-    public int playerFoodPoints = 300;
+    public int playerFoodPoints = 200;
     public int playerHealth = 100;
     public bool playersTurn = true;
     public GameObject PlayerObject;
-    [HideInInspector]
 
-    private int level = 1;
+    public int debugCounter = 0;
+
+    public List<MovingObject> actors;
+
+    public static int level = 1;
 
     void Awake()
     {
@@ -24,15 +27,18 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
-        PlayerObject = GameObject.FindWithTag("Player");  
+        PlayerObject = GameObject.FindWithTag("Player");
+        actors = new List<MovingObject>();
         InitGame();
         
     }
 
     void InitGame()
     {
+        actors.Clear();
         boardScript.SetupScene(level);
         PlayerObject.transform.position = BoardManager.entrance;
+        
     }
 
     public void GameOver()
@@ -42,12 +48,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-       //Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-       if (playersTurn)
-
-          //If any of these are true, return and do not start MoveEnemies.
-          return;
-
+        if (playersTurn)
+            return;
+        else
+        {
+            debugCounter++;
+            if (debugCounter > 10)
+            {
+                debugCounter = 0;
+                playersTurn = true;
+            }
+        }
     }
       
 }

@@ -30,8 +30,8 @@ public abstract class MovingObject : MonoBehaviour
 
       if (hit.transform == null)
       {
-         StartCoroutine(SmoothMovement(end));
-         return true;
+          StartCoroutine(SmoothMovement(end));
+          return true;
       }
 
       return false;
@@ -46,7 +46,7 @@ public abstract class MovingObject : MonoBehaviour
 
       if (hit.transform == null)
       {
-         return;
+          return;
       }
       T hitComponent = hit.transform.GetComponent<T>();
 

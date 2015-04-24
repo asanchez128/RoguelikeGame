@@ -25,14 +25,14 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         PlayerObject = GameObject.FindWithTag("Player");  
-       InitGame();
+        InitGame();
         
     }
 
     void InitGame()
     {
         boardScript.SetupScene(level);
-       PlayerObject.transform.position = BoardManager.entrance;
+        PlayerObject.transform.position = BoardManager.entrance;
     }
 
     public void GameOver()

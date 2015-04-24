@@ -371,19 +371,12 @@ public class BoardManager : MonoBehaviour
         
         allPositions.Clear();
 
-        
-
         BuildRooms(levelNumber);
         AddStairs();
         AddItems();
 
-
         levels.Add(new Level(levelNumber));
 
-
-
         DisplayScene();
-        
-
     }
 }

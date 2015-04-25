@@ -80,35 +80,35 @@ public class PlayerController : MovingObject
             food += 10;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food2")
         {
             food += 20;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food3")
         {
             food += 30;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food4")
         {
             food += 40;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food5")
         {
             food += 50;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         
     }

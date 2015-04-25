@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     public int debugCounter = 0;
 
     public List<EnemyController> enemies;
-    private bool enemiesMoving;                             
-    
+    private bool enemiesMoving;
+
+    public static List<Vector2> occupiedSpots = new List<Vector2>();
 
     public static int level = 1;
     public static int levelCap = 25;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
         boardScript.SetupScene(level);
         PlayerObject.transform.position = BoardManager.entrance;
+        occupiedSpots.Clear();
     }
 
     public void GameOver()

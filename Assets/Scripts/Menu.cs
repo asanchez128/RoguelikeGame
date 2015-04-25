@@ -12,7 +12,10 @@ public class Menu: MonoBehaviour
    {
       GUI.backgroundColor = Color.yellow;
       //GUI.Button(new Rect(100, 100, 70, 30), "Start");
-      GUI.Button(new Rect(buttonA, buttonB, buttonC, buttonD), "Start");
+      if (GUI.Button(new Rect(buttonA, buttonB, buttonC, buttonD), "Start"))
+      {
+         Application.LoadLevel("Main");
+      }
       GUI.Label(new Rect(labelA, labelB, labelC, labelD), "Dungeon Adventure");
       GUI.Label(new Rect(_labelA, _labelB, _labelC, _labelD), "By Nathan Roberts and Amadeus Sanchez");
    }

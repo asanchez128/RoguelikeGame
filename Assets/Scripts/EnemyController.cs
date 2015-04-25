@@ -3,25 +3,31 @@ using System.Collections;
 
 public class EnemyController : MovingObject {
 
-   public int playerDamage;                            //The amount of food points to subtract from the player when attacking.
+   private int enemyStrength;
+   private int enemyHealth;
 
-   private Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
-   private Transform target;                           //Transform to attempt to move toward each turn.
-   private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
-   //Start overrides the virtual Start function of the base class.
+   private Animator animator;  
+   private Transform target;  
+   private bool skipMove;    
+
    protected override void Start()
    {
-      //Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
-      //This allows the GameManager to issue movement commands.
+
       GameManager.instance.AddEnemyToList(this);
 
-      //Get and store a reference to the attached Animator component.
-      animator = GetComponent<Animator>();
-
-      //Find the Player GameObject using it's tag and store a reference to its transform component.
       target = GameObject.FindGameObjectWithTag("Player").transform;
 
-      //Call the start function of our base class MovingObject.
+      if (GameManager.level <= 5)
+          enemyStrength = Random.Range(1, GameManager.level);
+      else
+          enemyStrength = Random.Range(GameManager.level - 5, GameManager.level + 6);
+
+      if (GameManager.level <= 5)
+          enemyHealth = Random.Range(5, GameManager.level+6);
+      else
+          enemyHealth = Random.Range(GameManager.level, GameManager.level + 6);
+      
+
       base.Start();
    }
 
@@ -38,14 +44,30 @@ public class EnemyController : MovingObject {
        base.AttemptMove<PlayerController>(xDir, yDir);
    }
 
+   public void LoseHealth(int loss)
+   {
+       enemyHealth -= loss;
+
+       CheckIfDead();
+   }
+
+   void CheckIfDead()
+   {
+       if (enemyHealth <= 0)
+       {
+           Destroy(gameObject);
+       }
+   }
+
    protected override void OnCantMove<T>(T component)
    {
        if (typeof (T) == typeof (PlayerController))
        {
           PlayerController hitPlayer = component as PlayerController;
-
-          //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
-          hitPlayer.LoseHealth(playerDamage);
+          int attack = enemyStrength + Random.Range(-2, 3);
+          if (attack < 0)
+              attack = 0;
+          hitPlayer.LoseHealth(attack);
        }
    }
 }

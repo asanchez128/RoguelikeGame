@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
     public static int playerFoodPoints = 1000;
     public static int playerHealth = 100;
+    public static int playerStrength = 3;
     [HideInInspector] public bool playersTurn = true;
 
     public GameObject PlayerObject;
@@ -90,7 +91,7 @@ public class GameManager : MonoBehaviour
           }
        }
        yield return new WaitForSeconds(turnDelay);
-
+       occupiedSpots.Clear();
        playersTurn = true;
 
        enemiesMoving = false;

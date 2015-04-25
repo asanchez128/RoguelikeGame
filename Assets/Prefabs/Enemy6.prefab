@@ -12,6 +12,7 @@ GameObject:
   - 61: {fileID: 6188424}
   - 212: {fileID: 21236854}
   - 114: {fileID: 11492848}
+  - 111: {fileID: 11167484}
   m_Layer: 8
   m_Name: Enemy6
   m_TagString: Untagged
@@ -59,6 +60,20 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .899999976, y: .899999976}
+--- !u!111 &11167484
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199142}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: dde1c9df353b88e4fbeb3acd3a1cc100, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &11492848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,7 +89,6 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  playerDamage: 0
 --- !u!212 &21236854
 SpriteRenderer:
   m_ObjectHideFlags: 1

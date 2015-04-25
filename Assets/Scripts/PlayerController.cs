@@ -7,11 +7,16 @@ public class PlayerController : MovingObject
 
     private int food;                           
     private int health;
+    private int strength;
+    private Animation animation;
+
 
     protected override void Start()
     {
         food = GameManager.playerFoodPoints;
         health = GameManager.playerHealth;
+        strength = GameManager.playerStrength;
+        
         base.Start();
     }
 
@@ -65,8 +70,15 @@ public class PlayerController : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        
-        Destroy(component.gameObject);//todo:  damage enemy
+        if (typeof(T) == typeof(EnemyController))
+        {
+            EnemyController hitEnemy = component as EnemyController;
+            hitEnemy.GetComponent<Animation>().Play();
+            int attack = strength + Random.Range(-2, 3);
+            if (attack < 0)
+                attack = 0;
+            hitEnemy.LoseHealth(attack);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -80,35 +92,35 @@ public class PlayerController : MovingObject
             food += 10;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food2")
         {
             food += 20;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food3")
         {
             food += 30;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food4")
         {
             food += 40;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Food5")
         {
             food += 50;
             if (food > 200)
                 food = 200;
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
         
     }

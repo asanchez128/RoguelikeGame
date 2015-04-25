@@ -21,21 +21,24 @@ public abstract class MovingObject : MonoBehaviour
 
    protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
    {
-      Vector2 start = transform.position;
-      Vector2 end = start + new Vector2(xDir, yDir);
+        Vector2 start = transform.position;
+        Vector2 end = start + new Vector2(xDir, yDir);
 
-      boxCollider.enabled = false;
-      hit = Physics2D.Linecast(start, end, blockingLayer);
-      boxCollider.enabled = true;
+      
+        boxCollider.enabled = false;
+        hit = Physics2D.Linecast(start, end, blockingLayer);
+        boxCollider.enabled = true;
 
-      if (hit.transform == null)
-      {
-          StartCoroutine(SmoothMovement(end));
-          return true;
-      }
-
-      return false;
-
+        if (hit.transform == null)
+        { 
+            if (!GameManager.occupiedSpots.Contains(end))
+            { 
+                GameManager.occupiedSpots.Add(end);
+                StartCoroutine(SmoothMovement(end));
+                return true;
+            }
+        }
+        return false;
    }
 
    protected virtual void AttemptMove<T>(int xDir, int yDir)
@@ -66,6 +69,10 @@ public abstract class MovingObject : MonoBehaviour
          rb2D.MovePosition(newPosition);
          sqrRemainingDistance = (transform.position - end).sqrMagnitude;
          yield return null;
+      }
+      if (GameManager.occupiedSpots.Contains(end))
+      {
+          GameManager.occupiedSpots.Remove(end);
       }
    }
 

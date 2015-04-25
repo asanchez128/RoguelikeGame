@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
        enemiesMoving = true;
 
        //Wait for turnDelay seconds, defaults to .1 (100 ms).
-       yield return new WaitForSeconds(turnDelay);
+       //yield return new WaitForSeconds(turnDelay);
 
        //If there are no enemies spawned (IE in first level):
        if (enemies.Count == 0)
@@ -95,13 +95,14 @@ public class GameManager : MonoBehaviour
              enemies[i].MoveEnemy();
 
              //Wait for Enemy's moveTime before moving next Enemy, 
-             yield return new WaitForSeconds(enemies[i].moveTime);
+             
           }
           else
           {
              enemies.Remove(enemies[i]);
           }
        }
+       yield return new WaitForSeconds(turnDelay);
        //Once Enemies are done moving, set playersTurn to true so player can move.
        playersTurn = true;
 

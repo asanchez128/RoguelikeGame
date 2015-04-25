@@ -64,7 +64,7 @@ public class EnemyController : MovingObject {
          xDir = target.position.x > transform.position.x ? 1 : -1;
 
       //Call the AttemptMove function and pass in the generic parameter Player, because Enemy is moving and expecting to potentially encounter a Player
-      AttemptMove<EnemyController>(xDir, yDir);
+      AttemptMove<PlayerController>(xDir, yDir);
    }
 
     

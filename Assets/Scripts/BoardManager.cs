@@ -13,7 +13,8 @@ public class BoardManager : MonoBehaviour
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] stairTiles;
-    public GameObject[] itemTiles;
+    public GameObject[] foodTiles;
+    public GameObject[] treasureTiles;
     public GameObject[] enemyTiles;
 
     public static List<Level> levels = new List<Level>();
@@ -365,7 +366,7 @@ public class BoardManager : MonoBehaviour
 
             if (!itemSpots.Contains(pos))
             {
-                GameObject item = itemTiles[Random.Range(0, itemTiles.Length)];
+                GameObject item = foodTiles[Random.Range(0, foodTiles.Length)];
                 item = Instantiate(item, pos, Quaternion.identity) as GameObject;
                 itemSpots.Add(pos);
                 

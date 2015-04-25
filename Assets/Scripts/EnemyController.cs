@@ -27,15 +27,15 @@ public class EnemyController : MovingObject {
 
    public void MoveEnemy()
    {
-      int xDir = Random.Range(-1,2);
-      int yDir = Random.Range(-1, 2);
-      while(xDir != 0 && yDir != 0)
-      {
-          xDir = Random.Range(-1, 2);
-          yDir = Random.Range(-1, 2);
-      }
+       int xDir = Random.Range(-1, 2);
+       int yDir = Random.Range(-1, 2);
+       while (xDir != 0 && yDir != 0)
+       {
+           xDir = Random.Range(-1, 2);
+           yDir = Random.Range(-1, 2);
+       }
 
-      AttemptMove<PlayerController>(xDir, yDir);
+       base.AttemptMove<PlayerController>(xDir, yDir);
    }
 
    protected override void OnCantMove<T>(T component)

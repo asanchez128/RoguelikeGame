@@ -65,8 +65,8 @@ public class PlayerController : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        component.gameObject.SetActive(false);//todo:  damage enemy
-
+        
+        Destroy(component.gameObject);//todo:  damage enemy
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -38,8 +38,6 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
-<<<<<<< HEAD
-        actors.Clear();
         if (instance != null)
         instance.enemies.Clear();
         else
@@ -48,12 +46,6 @@ public class GameManager : MonoBehaviour
         }
         boardScript.SetupScene(level);
         PlayerObject.transform.position = BoardManager.entrance;
-=======
-        boardScript.SetupScene(level);
-        PlayerObject.transform.position = BoardManager.entrance;
-        enemies.Clear();
-
->>>>>>> d18c2c76ee0d63d6e75ffe344def4ba784560755
     }
 
     public void GameOver()
@@ -96,11 +88,18 @@ public class GameManager : MonoBehaviour
        //Loop through List of Enemy objects.
        for (int i = 0; i < enemies.Count; i++)
        {
-          //Call the MoveEnemy function of Enemy at index i in the enemies List.
-          enemies[i].MoveEnemy();
+          if (enemies[i] != null)
+          {
+             //Call the MoveEnemy function of Enemy at index i in the enemies List.
+             enemies[i].MoveEnemy();
 
-          //Wait for Enemy's moveTime before moving next Enemy, 
-          yield return new WaitForSeconds(enemies[i].moveTime);
+             //Wait for Enemy's moveTime before moving next Enemy, 
+             yield return new WaitForSeconds(enemies[i].moveTime);
+          }
+          else
+          {
+             enemies.Remove(enemies[i]);
+          }
        }
        //Once Enemies are done moving, set playersTurn to true so player can move.
        playersTurn = true;

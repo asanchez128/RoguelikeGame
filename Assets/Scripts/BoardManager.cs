@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -347,11 +348,8 @@ public class BoardManager : MonoBehaviour
 
     void AddItems()
     {
-<<<<<<< HEAD
+
        int itemNumber = Random.Range(floors.Count / 100, floors.Count / 50);
-=======
-        int itemNumber = Random.Range(floors.Count/100,floors.Count / 50);
->>>>>>> d18c2c76ee0d63d6e75ffe344def4ba784560755
         if((floors.Count / 100) < 1)
         {
             itemNumber = Random.Range(1, 3);
@@ -380,10 +378,10 @@ public class BoardManager : MonoBehaviour
 
     void AddEnemies()
     {
-       int enemiesNumber = Random.Range(floors.Count/ 100, floors.Count / 50);
+       int enemiesNumber = Random.Range(0, floors.Count / 30);
        if ((floors.Count / 100) < 1)
        {
-          enemiesNumber = Random.Range(0, 2);
+          enemiesNumber = Random.Range(0, 3);
        }
 
        while (enemiesNumber > 0)

@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
        enemiesMoving = true;
 
        //Wait for turnDelay seconds, defaults to .1 (100 ms).
-       //yield return new WaitForSeconds(turnDelay);
+       yield return new WaitForSeconds(turnDelay);
 
        //If there are no enemies spawned (IE in first level):
        if (enemies.Count == 0)
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
        }
 
        //Loop through List of Enemy objects.
-       for (int i = 0; i < enemies.Count; i++)
+       sfor (int i = 0; i < enemies.Count; i++)
        {
           if (enemies[i] != null)
           {

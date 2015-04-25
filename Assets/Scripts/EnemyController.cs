@@ -35,7 +35,6 @@ public class EnemyController : MovingObject {
       {
          skipMove = false;
          return;
-
       }
 
       //Call the AttemptMove function from MovingObject.
@@ -44,7 +43,6 @@ public class EnemyController : MovingObject {
       //Now that Enemy has moved, set skipMove to true to skip next move.
       skipMove = true;
    }
-
 
    //MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
    public void MoveEnemy()
@@ -75,6 +73,14 @@ public class EnemyController : MovingObject {
    protected override void OnCantMove<T>(T component)
    {
       //Declare hitPlayer and set it to equal the encountered component.
+      //if (typeof (T) == typeof (PlayerController))
+      //{
+      //   PlayerController hitPlayer = component as PlayerController;
+
+      //   //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
+      //   hitPlayer.LoseHealth(playerDamage);
+      //}
+
       PlayerController hitPlayer = component as PlayerController;
 
       //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.

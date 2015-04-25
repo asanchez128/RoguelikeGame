@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
     public static int playerFoodPoints = 1000;
     public static int playerHealth = 100;
-    public bool playersTurn = true;
+    [HideInInspector] public bool playersTurn = true;
+
     public GameObject PlayerObject;
     public float turnDelay = 0.1f; 
     public int debugCounter = 0;
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (playersTurn)
+        if (playersTurn || enemiesMoving)
             return;
         else
         {

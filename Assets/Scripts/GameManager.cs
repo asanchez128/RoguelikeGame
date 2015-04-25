@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
        enemiesMoving = true;
 
        yield return new WaitForSeconds(turnDelay);
+
        for (int i = 0; i < enemies.Count; i++)
        {
           if (enemies[i] != null)
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
           }
        }
        yield return new WaitForSeconds(turnDelay);
+
        playersTurn = true;
 
        enemiesMoving = false;

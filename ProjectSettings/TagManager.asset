@@ -11,7 +11,33 @@ TagManager:
   - Food3
   - Food4
   - Food5
-  - Enemy
+  - Enemy1
+  - Enemy2
+  - Enemy3
+  - Enemy4
+  - Enemy5
+  - Enemy6
+  - Enemy7
+  - Enemy8
+  - Enemy9
+  - Enemy10
+  - Enemy11
+  - Enemy12
+  - Treasure1
+  - Treasure2
+  - Treasure3
+  - Potion1
+  - Potion2
+  - Potion3
+  - Potion4
+  - Potion5
+  - Potion6
+  - Potion7
+  - Potion8
+  - Potion9
+  - Potion10
+  - Potion11
+  - Potion12
   layers:
   - Default
   - TransparentFX

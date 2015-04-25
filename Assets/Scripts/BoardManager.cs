@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     public GameObject[] foodTiles;
     public GameObject[] treasureTiles;
     public GameObject[] enemyTiles;
+    public GameObject[] potionTiles;
 
     public static List<Level> levels = new List<Level>();
 
@@ -349,18 +350,17 @@ public class BoardManager : MonoBehaviour
 
     void AddItems()
     {
-
-       int itemNumber = Random.Range(floors.Count / 100, floors.Count / 50);
-        if((floors.Count / 100) < 1)
-        {
-            itemNumber = Random.Range(1, 3);
-        }
-
         itemSpots = new List<Vector3>();
         itemSpots.Add(exit);
         itemSpots.Add(entrance);
 
-        while (itemNumber > 0)
+        int foodNumber = Random.Range(floors.Count / 100, floors.Count / 50);
+        if((floors.Count / 100) < 1)
+        {
+            foodNumber = Random.Range(1, 3);
+        }
+
+        while (foodNumber > 0)
         {
             Vector3 pos = floors[Random.Range(0, floors.Count)];
 
@@ -371,9 +371,27 @@ public class BoardManager : MonoBehaviour
                 itemSpots.Add(pos);
                 
             }
-            itemNumber--;
+            foodNumber--;
         }
 
+        int treasureNumber = Random.Range(floors.Count / 500, floors.Count / 200);
+        if ((floors.Count / 500) < 1)
+        {
+            treasureNumber = 0;
+        }
+
+        while (treasureNumber > 0)
+        {
+            Vector3 pos = floors[Random.Range(0, floors.Count)];
+
+            if (!itemSpots.Contains(pos))
+            {
+                GameObject item = treasureTiles[Random.Range(0, treasureTiles.Length)];
+                item = Instantiate(item, pos, Quaternion.identity) as GameObject;
+                itemSpots.Add(pos);
+            }
+            treasureNumber--;
+        }
  
     }
 

@@ -7,9 +7,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public BoardManager boardScript;
+
+    public GameObject[] droppableLoot;
+
+    public Dictionary<int,int> foundPotions;
     
     public int playerLevel = 1;
     public int enemiesKilled = 0;
+
+    public int playerPoints = 0;
 
     public int playerMaxStamina = 200;
     public int playerCurrentStamina = 200;
@@ -48,6 +54,7 @@ public class GameManager : MonoBehaviour
         boardScript = GetComponent<BoardManager>();
         PlayerObject = GameObject.FindWithTag("Player");
         enemies = new List<EnemyController>();
+        foundPotions = new Dictionary<int,int>();
         InitGame();
         
     }
@@ -55,7 +62,7 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         if (instance != null)
-        instance.enemies.Clear();
+            instance.enemies.Clear();
         else
         {
            enemies.Clear();
@@ -68,8 +75,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        PlayerObject.SetActive(false);
-        Destroy(PlayerObject);
+        if (PlayerObject != null)
+        {
+            PlayerObject.SetActive(false);
+            Destroy(PlayerObject.gameObject);
+        }
         enabled = false;
     }
 
@@ -95,6 +105,11 @@ public class GameManager : MonoBehaviour
 
     public void AddEnemyToList(EnemyController script)
     {
+        
+        if (Random.Range(1, 4) == 1)
+        {
+            script.itemDrop = droppableLoot[Random.Range(0, droppableLoot.Length)];
+        }
        enemies.Add(script);
     }
 

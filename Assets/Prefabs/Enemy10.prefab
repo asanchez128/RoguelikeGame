@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6102466}
   - 212: {fileID: 21286158}
   - 114: {fileID: 11464726}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Enemy10
   m_TagString: Enemy10
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
   moveTime: .100000001
   blockingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   itemDrop: {fileID: 0}
 --- !u!212 &21286158
 SpriteRenderer:

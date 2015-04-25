@@ -402,7 +402,6 @@ public class BoardManager : MonoBehaviour
        {
           enemiesNumber = Random.Range(0, 3);
        }
-
        while (enemiesNumber > 0)
        {
           Vector3 pos = floors[Random.Range(0, floors.Count)];

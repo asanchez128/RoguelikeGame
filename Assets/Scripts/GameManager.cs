@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<int,int> foundPotions;
     
-    public int playerLevel = 1;
+    public int playerLevel = 10;
     public int enemiesKilled = 0;
 
     public int playerPoints = 0;
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
           }
        }
        yield return new WaitForSeconds(turnDelay);
-       occupiedSpots.Clear();
+       
        playersTurn = true;
 
        enemiesMoving = false;

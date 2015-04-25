@@ -66,7 +66,8 @@ public class EnemyController : MovingObject {
 
                Instantiate(itemDrop, pos, Quaternion.identity);
            }
-
+           if (GameManager.occupiedSpots.Contains(gameObject.transform.position))
+               GameManager.occupiedSpots.Remove(gameObject.transform.position);
            Destroy(gameObject);
        }
    }
@@ -80,8 +81,7 @@ public class EnemyController : MovingObject {
           if (attack < 0)
               attack = 0;
           Debug.Log("Player was hit for " + attack);
-          hitPlayer.LoseHealth(attack);
-          
+          hitPlayer.LoseHealth(attack);     
        }
    }
 }

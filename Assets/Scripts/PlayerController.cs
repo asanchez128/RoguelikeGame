@@ -335,6 +335,9 @@ public class PlayerController : MovingObject
             GameManager.instance.playerPoints = 0;
         GameManager.instance.playerLevel--;
         Debug.Log("Player leveled down to level " + GameManager.instance.playerLevel + "...");
+        if (GameManager.instance.playerLevel <= 0)
+            health = 0;
+        CheckIfGameOver();
     }
 
     private void LevelUp()

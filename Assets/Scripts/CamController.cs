@@ -12,8 +12,11 @@ public class CamController : MonoBehaviour
 
     void Update()
     {
-        Vector3 playerpos = player.position;
-        playerpos.z = transform.position.z;
-        transform.position = playerpos;
+        if (player)
+        {
+            Vector3 playerpos = player.position;
+            playerpos.z = transform.position.z;
+            transform.position = playerpos;
+        }
     }
 }

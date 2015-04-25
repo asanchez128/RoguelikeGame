@@ -1,29 +1,29 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MovingObject
 {
     public float restartLevelDelay = 1f;
 
-    private int food;                           
-    private int health;
-    private int strength;
-    private Animation animation;
-
+    public int stamina;                           
+    public int health;
+    public int strength;
 
     protected override void Start()
     {
-        food = GameManager.playerFoodPoints;
-        health = GameManager.playerHealth;
-        strength = GameManager.playerStrength;
+        stamina = GameManager.instance.playerCurrentStamina;
+        health = GameManager.instance.playerCurrentHealth;
+        strength = GameManager.instance.playerStrength;
         
         base.Start();
     }
 
     private void OnDisable()
     {
-        GameManager.playerFoodPoints = food;
-        GameManager.playerHealth = health;
+        GameManager.instance.playerCurrentStamina = stamina;
+        GameManager.instance.playerCurrentHealth = health;
     }
 
 
@@ -58,12 +58,11 @@ public class PlayerController : MovingObject
 
         RaycastHit2D hit;
 
+        LoseStamina(1);
         if (Move(xDir, yDir, out hit))
         {
-            food--;
+            //?
         }
-
-        CheckIfGameOver();
 
         GameManager.instance.playersTurn = false;
     }
@@ -73,11 +72,13 @@ public class PlayerController : MovingObject
         if (typeof(T) == typeof(EnemyController))
         {
             EnemyController hitEnemy = component as EnemyController;
-            hitEnemy.GetComponent<Animation>().Play();
+
             int attack = strength + Random.Range(-2, 3);
             if (attack < 0)
                 attack = 0;
+            Debug.Log("Hit enemy for " + attack);
             hitEnemy.LoseHealth(attack);
+            CheckIfLeveledUp();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -89,45 +90,34 @@ public class PlayerController : MovingObject
         }
         else if (other.tag == "Food1")
         {
-            food += 10;
-            if (food > 200)
-                food = 200;
+            GainStamina(10);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food2")
         {
-            food += 20;
-            if (food > 200)
-                food = 200;
+            GainStamina(20);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food3")
         {
-            food += 30;
-            if (food > 200)
-                food = 200;
+            GainStamina(30);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food4")
         {
-            food += 40;
-            if (food > 200)
-                food = 200;
+            GainStamina(40);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food5")
         {
-            food += 50;
-            if (food > 200)
-                food = 200;
+            GainStamina(50);
             Destroy(other.gameObject);
         }
         
     }
     private void Restart()
     {
-        GameManager.level++;
-        Application.LoadLevel(Application.loadedLevel);
+        GameManager.instance.NextLevel();
     }
     public void LoseHealth(int loss)
     {
@@ -136,10 +126,69 @@ public class PlayerController : MovingObject
         CheckIfGameOver();
     }
 
+    public void GainHealth(int gain)
+    {
+        health += gain;
+        if (health > GameManager.instance.playerMaxHealth)
+        {
+            health = GameManager.instance.playerMaxHealth;
+        }
+    }
+
+    public void LoseStamina(int loss)
+    {
+        stamina -= loss;
+
+        CheckIfGameOver();
+    }
+
+    public void GainStamina(int gain)
+    {
+        stamina += gain;
+        if (stamina > GameManager.instance.playerMaxStamina)
+        {
+            stamina = GameManager.instance.playerMaxStamina;
+        }
+    }
+
+    private void CheckIfLeveledUp()
+    {
+        if (GameManager.instance.enemiesKilled >= Math.Pow(2,GameManager.instance.playerLevel))
+        {
+            GameManager.instance.enemiesKilled = 0;
+            GameManager.instance.playerLevel++;
+            Debug.Log("Player leveled up to level " + GameManager.instance.playerLevel + "!");
+
+            int levelStats = Random.Range(1, 4);
+            if (levelStats != 1)
+            {
+                GameManager.instance.playerMaxStamina += 50;
+                GainStamina(50);
+                Debug.Log("Max Stamina rose to " + GameManager.instance.playerMaxStamina);
+            }
+            if (levelStats != 2)
+            {
+                GameManager.instance.playerMaxHealth += 10;
+                GainHealth(10);
+                Debug.Log("Max Health rose to " + GameManager.instance.playerMaxHealth);
+            }
+            if (levelStats != 3)
+            {
+                GameManager.instance.playerStrength += 2;
+                strength += 2;
+                Debug.Log("Strength rose to " + GameManager.instance.playerStrength);
+            }
+        }
+    }
+
     private void CheckIfGameOver()
     {
-        if (food <= 0 || health <= 0)
+        if (stamina <= 0 || health <= 0)
         {
+            if (stamina <= 0)
+                Debug.Log("Starved to death!");
+            else if (health <= 0)
+                Debug.Log("Player was killed!");
             GameManager.instance.GameOver();
         }
     }

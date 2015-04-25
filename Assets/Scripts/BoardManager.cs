@@ -347,10 +347,14 @@ public class BoardManager : MonoBehaviour
 
     void AddItems()
     {
+<<<<<<< HEAD
        int itemNumber = Random.Range(floors.Count / 100, floors.Count / 50);
+=======
+        int itemNumber = Random.Range(floors.Count/100,floors.Count / 50);
+>>>>>>> d18c2c76ee0d63d6e75ffe344def4ba784560755
         if((floors.Count / 100) < 1)
         {
-            itemNumber = Random.Range(0, 2);
+            itemNumber = Random.Range(1, 3);
         }
 
         itemSpots = new List<Vector3>();

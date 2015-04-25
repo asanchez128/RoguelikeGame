@@ -14,13 +14,12 @@ public class GameManager : MonoBehaviour
     public float turnDelay = 0.1f; 
     public int debugCounter = 0;
 
-    public List<MovingObject> actors;
-
     public List<EnemyController> enemies;
     private bool enemiesMoving;                             
     
 
     public static int level = 1;
+    public static int levelCap = 25;
 
     void Awake()
     {
@@ -39,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
+<<<<<<< HEAD
         actors.Clear();
         if (instance != null)
         instance.enemies.Clear();
@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
         }
         boardScript.SetupScene(level);
         PlayerObject.transform.position = BoardManager.entrance;
+=======
+        boardScript.SetupScene(level);
+        PlayerObject.transform.position = BoardManager.entrance;
+        enemies.Clear();
+
+>>>>>>> d18c2c76ee0d63d6e75ffe344def4ba784560755
     }
 
     public void GameOver()

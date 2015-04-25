@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool playersTurn = true;
 
     public GameObject PlayerObject;
-    public float turnDelay = 0.1f; 
+    public float turnDelay = 0.05f; 
     public int debugCounter = 0;
 
     public List<EnemyController> enemies;
@@ -64,48 +64,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Call this to add the passed in Enemy to the List of Enemy objects.
+
     public void AddEnemyToList(EnemyController script)
     {
-       //Add Enemy to List enemies.
        enemies.Add(script);
     }
 
     IEnumerator MoveEnemies()
     {
-       //While enemiesMoving is true player is unable to move.
        enemiesMoving = true;
 
-       //Wait for turnDelay seconds, defaults to .1 (100 ms).
        yield return new WaitForSeconds(turnDelay);
-
-       //If there are no enemies spawned (IE in first level):
-       if (enemies.Count == 0)
-       {
-          //Wait for turnDelay seconds between moves, replaces delay caused by enemies moving when there are none.
-          yield return new WaitForSeconds(turnDelay);
-       }
-
-       //Loop through List of Enemy objects.
        for (int i = 0; i < enemies.Count; i++)
        {
           if (enemies[i] != null)
           {
-             //Call the MoveEnemy function of Enemy at index i in the enemies List.
              enemies[i].MoveEnemy();
-
-             //Wait for Enemy's moveTime before moving next Enemy, 
-             yield return new WaitForSeconds(enemies[i].moveTime);
           }
           else
           {
              enemies.Remove(enemies[i]);
           }
        }
-       //Once Enemies are done moving, set playersTurn to true so player can move.
+       yield return new WaitForSeconds(turnDelay);
        playersTurn = true;
 
-       //Enemies are done moving, set enemiesMoving to false.
        enemiesMoving = false;
     }
 }

@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         PlayerObject = GameObject.FindWithTag("Player");
-        actors = new List<MovingObject>();
         enemies = new List<EnemyController>();
         InitGame();
         
@@ -41,10 +40,14 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         actors.Clear();
+        if (instance != null)
+        instance.enemies.Clear();
+        else
+        {
+           enemies.Clear();
+        }
         boardScript.SetupScene(level);
         PlayerObject.transform.position = BoardManager.entrance;
-       enemies.Clear();
-
     }
 
     public void GameOver()
@@ -58,12 +61,7 @@ public class GameManager : MonoBehaviour
             return;
         else
         {
-            debugCounter++;
-            if (debugCounter > 10)
-            {
-                debugCounter = 0;
-                playersTurn = true;
-            }
+            StartCoroutine(MoveEnemies());
         }
     }
 

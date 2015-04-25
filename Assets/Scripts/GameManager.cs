@@ -7,9 +7,22 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public BoardManager boardScript;
-    public static int playerFoodPoints = 1000;
-    public static int playerHealth = 100;
-    public static int playerStrength = 3;
+    
+    public int playerLevel = 1;
+    public int enemiesKilled = 0;
+
+    public int playerMaxStamina = 200;
+    public int playerCurrentStamina = 200;
+
+    public int playerMaxHealth = 50;
+    public int playerCurrentHealth = 50;
+
+    public int playerStrength = 10;
+
+    public int enemyBaseHealth = 30;
+
+    public int enemyBaseStrength = 5;
+
     [HideInInspector] public bool playersTurn = true;
 
     public GameObject PlayerObject;
@@ -48,12 +61,15 @@ public class GameManager : MonoBehaviour
            enemies.Clear();
         }
         boardScript.SetupScene(level);
+        PlayerObject = GameObject.FindWithTag("Player");
         PlayerObject.transform.position = BoardManager.entrance;
         occupiedSpots.Clear();
     }
 
     public void GameOver()
     {
+        PlayerObject.SetActive(false);
+        Destroy(PlayerObject);
         enabled = false;
     }
 
@@ -67,6 +83,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void NextLevel()
+    {
+        level++;
+
+        enemyBaseHealth += 5;
+        enemyBaseStrength += 2;
+        
+        Application.LoadLevel(Application.loadedLevel);
+    }
 
     public void AddEnemyToList(EnemyController script)
     {

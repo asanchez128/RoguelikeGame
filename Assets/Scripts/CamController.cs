@@ -3,17 +3,20 @@ using System.Collections;
 
 public class CamController : MonoBehaviour
 {
-   private Transform player;
+    private Transform player;
 
-   void Start()
-   {
-      player = GameObject.Find("Player").transform;
-   }
+    void Start()
+    {
+        player = GameObject.Find("Player").transform;
+    }
 
-   void Update()
-   {
-      Vector3 playerpos = player.position;
-      playerpos.z = transform.position.z;
-      transform.position = playerpos;
-   }
+    void Update()
+    {
+        if (player)
+        {
+            Vector3 playerpos = player.position;
+            playerpos.z = transform.position.z;
+            transform.position = playerpos;
+        }
+    }
 }

@@ -4,31 +4,17 @@ using System.Collections;
 public class EnemyController : MovingObject {
 
    private int enemyStrength;
-   private int enemyHealth;
-
-   private Animator animator;  
-   private Transform target;  
-   private bool skipMove;    
+   private int enemyHealth; 
 
    protected override void Start()
    {
 
-      GameManager.instance.AddEnemyToList(this);
+       GameManager.instance.AddEnemyToList(this);
 
-      target = GameObject.FindGameObjectWithTag("Player").transform;
+       enemyHealth = GameManager.instance.enemyBaseHealth + Random.Range(-5, 6);
+       enemyStrength = GameManager.instance.enemyBaseStrength + Random.Range(-2, 3);
 
-      if (GameManager.level <= 5)
-          enemyStrength = Random.Range(1, GameManager.level);
-      else
-          enemyStrength = Random.Range(GameManager.level - 5, GameManager.level + 6);
-
-      if (GameManager.level <= 5)
-          enemyHealth = Random.Range(5, GameManager.level+6);
-      else
-          enemyHealth = Random.Range(GameManager.level, GameManager.level + 6);
-      
-
-      base.Start();
+       base.Start();
    }
 
    public void MoveEnemy()
@@ -55,6 +41,8 @@ public class EnemyController : MovingObject {
    {
        if (enemyHealth <= 0)
        {
+           GameManager.instance.enemiesKilled++;
+           Debug.Log("Enemy died!");
            Destroy(gameObject);
        }
    }
@@ -67,7 +55,9 @@ public class EnemyController : MovingObject {
           int attack = enemyStrength + Random.Range(-2, 3);
           if (attack < 0)
               attack = 0;
+          Debug.Log("Player was hit for " + attack);
           hitPlayer.LoseHealth(attack);
+          
        }
    }
 }

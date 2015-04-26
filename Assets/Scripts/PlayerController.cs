@@ -83,7 +83,7 @@ public class PlayerController : MovingObject
             int attack = strength + Random.Range(-2, 3);
             if (attack < 0)
                 attack = 0;
-            Debug.Log("Hit enemy for " + attack);
+            Debug.Log("You attack the " + hitEnemy.tag + "!  (-" + attack + " hp)");
             hitEnemy.LoseHealth(attack);
             if (GameManager.instance.enemiesKilled >= Math.Pow(2, GameManager.instance.playerLevel))
                 LevelUp();
@@ -99,41 +99,84 @@ public class PlayerController : MovingObject
         #region items
         else if (other.tag == "Food1")
         {
+            if (Random.Range(1, 11) == 1)
+            {
+                Debug.Log("You find a piece of bread on the floor and decide to eat it.");
+            }
+            else
+            {
+                Debug.Log("You eat a piece of bread.");
+            }
             GainStamina(10);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food2")
         {
+            if (Random.Range(1, 11) == 1)
+            {
+                Debug.Log("You find an apple on the floor and decide to eat it.");
+            }
+            else
+            {
+                Debug.Log("You eat an apple.");
+            }
             GainStamina(20);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food3")
         {
+            if (Random.Range(1, 11) == 1)
+            {
+                Debug.Log("You eat a raw chicken leg off of the floor.");
+            }
+            else
+            {
+                Debug.Log("You eat a chicken leg.");
+            }
             GainStamina(30);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food4")
         {
+            if (Random.Range(1, 11) == 1)
+            {
+                Debug.Log("You eat a chunk of meat you found on the floor.");
+            }
+            else
+            {
+                Debug.Log("You eat a chunk of meat.");
+            }
             GainStamina(40);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Food5")
         {
+            if (Random.Range(1, 11) == 1)
+            {
+                Debug.Log("You eat a giant raw steak off of the ground.");
+            }
+            else
+            {
+                Debug.Log("You eat a large steak.");
+            }
             GainStamina(50);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Treasure1")
         {
+            Debug.Log("You find some gold coins!");
             GameManager.instance.playerPoints += 100;
             Destroy(other.gameObject);
         }
         else if (other.tag == "Treasure2")
         {
+            Debug.Log("You find a stack of gold coins!");
             GameManager.instance.playerPoints += 200;
             Destroy(other.gameObject);
         }
         else if (other.tag == "Treasure3")
         {
+            Debug.Log("You find a large bag of gold coins!");
             GameManager.instance.playerPoints += 300;
             Destroy(other.gameObject);
         }
@@ -215,66 +258,66 @@ public class PlayerController : MovingObject
         #region potions
         if (potions[potionNum] == 1)
         {
-            Debug.Log("Player drank a potion of healing!");
+            Debug.Log("You drink a potion of healing!");
             GainHealth(50);
         }
         else if (potions[potionNum] == 2)
         {
-            Debug.Log("Player drank a potion of poison...");
+            Debug.Log("You drink a potion of poison...");
             LoseHealth(20);
         }
         else if (potions[potionNum] == 3)
         {
-            Debug.Log("Player drank a potion of stamina!");
+            Debug.Log("You drink a potion of stamina!");
             GainStamina(100);
         }
         else if (potions[potionNum] == 4)
         {
-            Debug.Log("Player drank a potion of hunger...");
+            Debug.Log("You drink a potion of hunger...");
             LoseStamina(100);
         }
         else if (potions[potionNum] == 5)
         {
-            Debug.Log("Player drank a potion of strength!");
+            Debug.Log("You drink a potion of strength!");
             GainStrength(4);
         }
         else if (potions[potionNum] == 6)
         {
-            Debug.Log("Player drank a potion of weakness...");
+            Debug.Log("You drink a potion of weakness...");
             LoseStrength(4);
         }
         else if (potions[potionNum] == 7)
         {
-            Debug.Log("Player drank a potion of augmented health!");
+            Debug.Log("You drink a potion of augmented health!");
             GameManager.instance.playerMaxHealth += 10;
             GainHealth(10);
         }
         else if (potions[potionNum] == 8)
         {
-            Debug.Log("Player drank a potion of diminished health...");
+            Debug.Log("You drink a potion of diminished health...");
             GameManager.instance.playerMaxHealth -= 10;
             LoseHealth(10);
         }
         else if (potions[potionNum] == 9)
         {
-            Debug.Log("Player drank a potion of augmented stamina!");
+            Debug.Log("You drink a potion of augmented stamina!");
             GameManager.instance.playerMaxStamina += 50;
             GainStamina(50);
         }
         else if (potions[potionNum] == 10)
         {
-            Debug.Log("Player drank a potion of diminished stamina...");
+            Debug.Log("You drink a potion of diminished stamina...");
             GameManager.instance.playerMaxStamina -= 50;
             LoseStamina(50);
         }
         else if (potions[potionNum] == 11)
         {
-            Debug.Log("Player drank an awful potion...");
+            Debug.Log("You drink an awful potion...");
             LevelDown();
         }
         else if (potions[potionNum] == 12)
         {
-            Debug.Log("Player drank a wondrous potion!");
+            Debug.Log("You drink a wondrous potion!");
             LevelUp();
         }
         #endregion
@@ -313,6 +356,7 @@ public class PlayerController : MovingObject
         stamina += gain;
         if (stamina > GameManager.instance.playerMaxStamina)
         {
+            GainHealth(stamina - GameManager.instance.playerMaxStamina);
             stamina = GameManager.instance.playerMaxStamina;
         }
     }
@@ -334,7 +378,7 @@ public class PlayerController : MovingObject
         if (GameManager.instance.playerPoints < 0)
             GameManager.instance.playerPoints = 0;
         GameManager.instance.playerLevel--;
-        Debug.Log("Player leveled down to level " + GameManager.instance.playerLevel + "...");
+        Debug.Log("You have leveled down to level " + GameManager.instance.playerLevel + "...");
         if (GameManager.instance.playerLevel <= 0)
             health = 0;
         CheckIfGameOver();
@@ -346,26 +390,26 @@ public class PlayerController : MovingObject
         GameManager.instance.playerPoints += 100 * GameManager.instance.playerLevel;
         GameManager.instance.playerLevel++;
             
-        Debug.Log("Player leveled up to level " + GameManager.instance.playerLevel + "!");
+        Debug.Log("You have leveled up to level " + GameManager.instance.playerLevel + "!");
 
         int levelStats = Random.Range(1, 4);
         if (levelStats != 1)
         {
             GameManager.instance.playerMaxStamina += 50;
             GainStamina(50);
-            Debug.Log("Max Stamina rose to " + GameManager.instance.playerMaxStamina);
+            Debug.Log("Max Stamina rose to " + GameManager.instance.playerMaxStamina + ".");
         }
         if (levelStats != 2)
         {
             GameManager.instance.playerMaxHealth += 10;
             GainHealth(10);
-            Debug.Log("Max Health rose to " + GameManager.instance.playerMaxHealth);
+            Debug.Log("Max Health rose to " + GameManager.instance.playerMaxHealth + ".");
         }
         if (levelStats != 3)
         {
             GameManager.instance.playerStrength += 2;
             strength += 2;
-            Debug.Log("Strength rose to " + GameManager.instance.playerStrength);
+            Debug.Log("Strength rose to " + GameManager.instance.playerStrength + ".");
         }
     }
 
@@ -374,9 +418,9 @@ public class PlayerController : MovingObject
         if (stamina <= 0 || health <= 0)
         {
             if (stamina <= 0)
-                Debug.Log("Starved to death!");
+                Debug.Log("You have starved to death!");
             else if (health <= 0)
-                Debug.Log("Player was killed!");
+                Debug.Log("You have died!");
             Destroy(gameObject);
             GameManager.instance.GameOver();
         }

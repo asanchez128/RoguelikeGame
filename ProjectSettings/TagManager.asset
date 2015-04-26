@@ -11,18 +11,17 @@ TagManager:
   - Food3
   - Food4
   - Food5
-  - Enemy1
-  - Enemy2
-  - Enemy3
-  - Enemy4
-  - Enemy5
-  - Enemy6
-  - Enemy7
-  - Enemy8
-  - Enemy9
-  - Enemy10
-  - Enemy11
-  - Enemy12
+  - Skeleton
+  - Snake
+  - Dragon
+  - Land Shark
+  - Minotaur
+  - Rat
+  - Bat
+  - Monkey
+  - Goblin
+  - Creature
+  - Wolf
   - Treasure1
   - Treasure2
   - Treasure3

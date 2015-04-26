@@ -57,7 +57,7 @@ public class EnemyController : MovingObject {
        {
            GameManager.instance.enemiesKilled++;
            GameManager.instance.playerPoints += enemyPoints;
-           Debug.Log("Enemy died!");
+           Debug.Log("The "+ gameObject.tag + " has been slain.");
 
            if (itemDrop != null)
            {
@@ -80,7 +80,7 @@ public class EnemyController : MovingObject {
           int attack = enemyStrength + Random.Range(-2, 3);
           if (attack < 0)
               attack = 0;
-          Debug.Log("Player was hit for " + attack);
+          Debug.Log("The "+ gameObject.tag +" attacks you!  (-" + attack + " hp)");
           hitPlayer.LoseHealth(attack);     
        }
    }

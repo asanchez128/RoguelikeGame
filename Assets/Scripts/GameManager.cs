@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
    private void UpdateHealth()
    {
       if (healthObject != null)
-         healthObject.GetComponent<GUIText>().text = "Health: " + playerCurrentHealth;
+         healthObject.GetComponent<GUIText>().text = "Health: " + instance.playerCurrentHealth;
       else
       {
          healthObject = new GameObject();
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
    private void UpdateStamina()
    {
       if (staminaObject != null)
-         staminaObject.GetComponent<GUIText>().text = "Stamina: " + playerCurrentStamina;
+         staminaObject.GetComponent<GUIText>().text = "Stamina: " + instance.playerCurrentStamina;
       else
       {
          staminaObject = new GameObject();

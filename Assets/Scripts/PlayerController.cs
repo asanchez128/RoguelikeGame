@@ -348,11 +348,11 @@ public class PlayerController : MovingObject
 
     public void GainHealth(int gain)
     {
-        health += gain;
+        //health += gain;
         GameManager.instance.playerCurrentHealth += gain;
-        if (health > GameManager.instance.playerMaxHealth)
+        if (GameManager.instance.playerCurrentHealth > GameManager.instance.playerMaxHealth)
         {
-            health = GameManager.instance.playerMaxHealth;
+           GameManager.instance.playerCurrentHealth = GameManager.instance.playerMaxHealth;
         }
     }
 
@@ -367,11 +367,11 @@ public class PlayerController : MovingObject
     public void GainStamina(int gain)
     {
         stamina += gain;
-        GameManager.instance.playerCurrentStamina+= gain;
-        if (stamina > GameManager.instance.playerMaxStamina)
+        GameManager.instance.playerCurrentStamina += gain;
+        if (GameManager.instance.playerCurrentStamina.GetValueOrDefault() > GameManager.instance.playerMaxStamina)
         {
-            GainHealth(stamina.Value - GameManager.instance.playerMaxStamina);
-            stamina = GameManager.instance.playerMaxStamina;
+           GainHealth(GameManager.instance.playerCurrentStamina.GetValueOrDefault() - GameManager.instance.playerMaxStamina);
+           GameManager.instance.playerCurrentStamina = GameManager.instance.playerMaxStamina;
         }
     }
 

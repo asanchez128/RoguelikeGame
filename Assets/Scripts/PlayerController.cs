@@ -376,26 +376,7 @@ public class PlayerController : MovingObject
         strength += gain;
     }
 
-<<<<<<< HEAD
-            int levelStats = Random.Range(1, 4);
-            if (levelStats != 1)
-            {
-                GainStamina(50);
-                Debug.Log("Max Stamina rose to " + GameManager.instance.playerMaxStamina);
-            }
-            if (levelStats != 2)
-            {
-                GameManager.instance.playerMaxHealth += 10;
-                GainHealth(10);
-                Debug.Log("Max Health rose to " + GameManager.instance.playerMaxHealth);
-            }
-            if (levelStats != 3)
-            {
-                GameManager.instance.playerStrength += 2;
-                strength += 2;
-                Debug.Log("Strength rose to " + GameManager.instance.playerStrength);
-            }
-=======
+
     private void LevelDown()
     {
         GameManager.instance.playerPoints -= 100 * GameManager.instance.playerLevel;
@@ -434,7 +415,6 @@ public class PlayerController : MovingObject
             GameManager.instance.playerStrength += 2;
             strength += 2;
             Debug.Log("Strength rose to " + GameManager.instance.playerStrength + ".");
->>>>>>> cd997a47f6608cb91d378983c641195464239c92
         }
     }
 

@@ -34,7 +34,7 @@ public abstract class MovingObject : MonoBehaviour
             if (!GameManager.occupiedSpots.Contains(end))
             { 
                 GameManager.occupiedSpots.Add(end);
-                StartCoroutine(SmoothMovement(end));
+                StartCoroutine(SmoothMovement(start, end));
                 return true;
             }
         }
@@ -59,7 +59,7 @@ public abstract class MovingObject : MonoBehaviour
       }
    }
 
-   protected IEnumerator SmoothMovement(Vector3 end)
+   protected IEnumerator SmoothMovement(Vector3 start, Vector3 end)
    {
       float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
@@ -70,9 +70,9 @@ public abstract class MovingObject : MonoBehaviour
          sqrRemainingDistance = (transform.position - end).sqrMagnitude;
          yield return null;
       }
-      if (GameManager.occupiedSpots.Contains(end))
+      if (GameManager.occupiedSpots.Contains(start))
       {
-          GameManager.occupiedSpots.Remove(end);
+          GameManager.occupiedSpots.Remove(start);
       }
    }
 

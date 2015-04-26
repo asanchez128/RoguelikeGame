@@ -3,27 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Exit
-  - Entrance
-  - Food1
-  - Food2
-  - Food3
-  - Food4
-  - Food5
-  - Enemy
-  - StaminaText
-  - HealthText
+  tags: []
   layers:
-  - Default
-  - TransparentFX
-  - Ignore Raycast
-  - 
-  - Water
-  - UI
-  - 
-  - 
-  - BlockingLayer
   - 
   - 
   - 
@@ -47,19 +28,13 @@ TagManager:
   - 
   - 
   - 
-  m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
-  - name: floor
-    uniqueID: 2020306397
-    locked: 0
-  - name: items
-    uniqueID: 1598802371
-    locked: 0
-  - name: units
-    uniqueID: 3130676413
-    locked: 0
-  - name: effects
-    uniqueID: 1159306721
-    locked: 0
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers: []

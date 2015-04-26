@@ -12,22 +12,16 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<int,int> foundPotions;
     
-    public int playerLevel;
-    public int enemiesKilled;
-
-    public int playerPoints;
-
-    public int playerMaxStamina;
-    public int? playerCurrentStamina;
-
-    public int playerMaxHealth;
-    public int? playerCurrentHealth;
-
-    public int playerStrength;
-
-    public int enemyBaseHealth;
-
-    public int enemyBaseStrength;
+    public int playerCurrentHealth = 100;  
+    public int playerCurrentStamina = 200;
+    public int playerMaxHealth = 100;
+    public int playerMaxStamina = 200;
+    public int playerLevel = 1;
+    public int enemiesKilled = 0;
+    public int playerPoints = 0;
+    public int playerStrength = 5;
+    public int enemyBaseHealth = 10;
+    public int enemyBaseStrength = 2;
 
     [HideInInspector] public bool playersTurn = true;
 
@@ -71,17 +65,6 @@ public class GameManager : MonoBehaviour
         staminaObject.AddComponent<GUIText>();
         staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
 
-        instance.playerCurrentHealth = 100;  
-        instance.playerCurrentStamina = 200;
-        instance.playerMaxHealth = 100;
-        instance.playerMaxStamina = 200;
-        playerLevel = 1;
-        enemiesKilled = 0;
-        playerPoints = 0;
-        playerStrength = 10;
-        enemyBaseHealth = 30;
-        enemyBaseStrength = 2;
-
         InitGame();        
     }
 
@@ -93,7 +76,7 @@ public class GameManager : MonoBehaviour
         {
            enemies.Clear();
         }
-  
+
         boardScript.SetupScene(level);
         PlayerObject = GameObject.FindWithTag("Player");
         PlayerObject.transform.position = BoardManager.entrance;
@@ -106,6 +89,8 @@ public class GameManager : MonoBehaviour
         {
             PlayerObject.SetActive(false);
         }
+        UpdateHealth(0);
+        UpdateStamina(0);
     }
 
     void Update()
@@ -121,8 +106,6 @@ public class GameManager : MonoBehaviour
         {
             if (playersTurn || enemiesMoving)
             {
-                UpdateHealth();
-                UpdateStamina();
                 return; 
             }
             else
@@ -148,14 +131,14 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        instance.playerCurrentHealth = 100;
+        instance.playerCurrentHealth = 50;
         instance.playerCurrentStamina = 200;
-        instance.playerMaxHealth = 100;
+        instance.playerMaxHealth = 50;
         instance.playerMaxStamina = 200;
-        playerLevel = 10;
+        playerLevel = 1;
         enemiesKilled = 0;
         playerPoints = 0;
-        playerStrength = 10;
+        playerStrength = 5;
         enemyBaseHealth = 30;
         enemyBaseStrength = 2;
         PlayerObject = GameObject.FindWithTag("Player");
@@ -174,6 +157,8 @@ public class GameManager : MonoBehaviour
         enemyBaseStrength += 2;
         
         Application.LoadLevel(Application.loadedLevel);
+        UpdateHealth(playerCurrentHealth);
+        UpdateStamina(playerCurrentStamina);
     }
 
     public void AddEnemyToList(EnemyController script)
@@ -205,31 +190,32 @@ public class GameManager : MonoBehaviour
        yield return new WaitForSeconds(turnDelay);
        
        playersTurn = true;
+       occupiedSpots.Clear();
 
        enemiesMoving = false;
     }
 
-   private void UpdateHealth()
+   public void UpdateHealth(int currentHealth)
    {
-      if (healthObject != null)
-         healthObject.GetComponent<GUIText>().text = "Health: " + instance.playerCurrentHealth;
-      else
-      {
-         healthObject = new GameObject();
-        healthObject.AddComponent<GUIText>();
-        healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
-      }
+       if (healthObject != null)
+           healthObject.GetComponent<GUIText>().text = "Health: " + currentHealth;
+       else
+       {
+           healthObject = new GameObject();
+           healthObject.AddComponent<GUIText>();
+           healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
+       }
    }
 
-   private void UpdateStamina()
+   public void UpdateStamina(int currentStamina)
    {
-      if (staminaObject != null)
-         staminaObject.GetComponent<GUIText>().text = "Stamina: " + instance.playerCurrentStamina;
-      else
-      {
-         staminaObject = new GameObject();
-        staminaObject.AddComponent<GUIText>();
-        staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
-      }
+       if (staminaObject != null)
+           staminaObject.GetComponent<GUIText>().text = "Stamina: " + currentStamina;
+       else
+       {
+           staminaObject = new GameObject();
+           staminaObject.AddComponent<GUIText>();
+           staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
+       }
    }
 }

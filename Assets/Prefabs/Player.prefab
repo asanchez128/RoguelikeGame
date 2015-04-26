@@ -1,17 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &165190
+--- !u!1 &109216
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 416472}
-  - 114: {fileID: 11497948}
-  - 61: {fileID: 6158520}
-  - 50: {fileID: 5012720}
-  - 212: {fileID: 21210966}
+  - 4: {fileID: 446846}
+  - 114: {fileID: 11486456}
+  - 61: {fileID: 6101810}
+  - 50: {fileID: 5088420}
+  - 212: {fileID: 21218438}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -19,24 +19,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &416472
+--- !u!4 &446846
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165190}
+  m_GameObject: {fileID: 109216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5012720
+--- !u!50 &5088420
 Rigidbody2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165190}
+  m_GameObject: {fileID: 109216}
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
@@ -46,12 +46,12 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!61 &6158520
+--- !u!61 &6101810
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165190}
+  m_GameObject: {fileID: 109216}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -59,12 +59,12 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .899999976, y: .899999976}
---- !u!114 &11497948
+--- !u!114 &11486456
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165190}
+  m_GameObject: {fileID: 109216}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 093dddfceb837e14cb74a83d52a44d0a, type: 3}
@@ -78,12 +78,13 @@ MonoBehaviour:
   stamina: 0
   health: 0
   strength: 0
---- !u!212 &21210966
+  turnsSinceHurt: 0
+--- !u!212 &21218438
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165190}
+  m_GameObject: {fileID: 109216}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -113,5 +114,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 165190}
+  m_RootGameObject: {fileID: 109216}
   m_IsPrefabParent: 1

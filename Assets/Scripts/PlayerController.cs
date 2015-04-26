@@ -8,11 +8,11 @@ public class PlayerController : MovingObject
 {
     public float restartLevelDelay = 1f;
 
-    public int? stamina;                           
-    public int? health;
+    public int stamina;                           
+    public int health;
     public int strength;
 
-    public int turnsSinceHurt;
+    public int turnsSinceHurt = 0;
 
     private Dictionary<int, int> potions;
     
@@ -23,7 +23,6 @@ public class PlayerController : MovingObject
         health = GameManager.instance.playerCurrentHealth;
         strength = GameManager.instance.playerStrength;
         potions = GameManager.instance.foundPotions;
-        turnsSinceHurt = 0;
         
         base.Start();
     }
@@ -39,6 +38,9 @@ public class PlayerController : MovingObject
 
     private void Update()
     {
+        GameManager.instance.UpdateHealth(health);
+        GameManager.instance.UpdateStamina(stamina);
+
         if (!GameManager.instance.playersTurn) 
             return;
 
@@ -89,7 +91,7 @@ public class PlayerController : MovingObject
         {
             EnemyController hitEnemy = component as EnemyController;
 
-            int attack = strength + Random.Range(-2, 3);
+            int attack = strength + Random.Range(-1, 2);
             if (attack < 0)
                 attack = 0;
             Debug.Log("You attack the " + hitEnemy.tag + "!  (-" + attack + " hp)");
@@ -103,7 +105,6 @@ public class PlayerController : MovingObject
         if (other.tag == "Exit")
         {
             Invoke("Restart", restartLevelDelay);
-            PlayerPrefs.SetInt("Player Health", health.Value);
             enabled = false;
         }
         #region items
@@ -342,24 +343,21 @@ public class PlayerController : MovingObject
     {
         health -= loss;
         turnsSinceHurt = 0;
-        GameManager.instance.playerCurrentHealth -= loss;
         CheckIfGameOver();
     }
 
     public void GainHealth(int gain)
     {
-        //health += gain;
-        GameManager.instance.playerCurrentHealth += gain;
-        if (GameManager.instance.playerCurrentHealth > GameManager.instance.playerMaxHealth)
+        health += gain;
+        if (health > GameManager.instance.playerMaxHealth)
         {
-           GameManager.instance.playerCurrentHealth = GameManager.instance.playerMaxHealth;
+           health = GameManager.instance.playerMaxHealth;
         }
     }
 
     public void LoseStamina(int loss)
     {
         stamina -= loss;
-        GameManager.instance.playerCurrentStamina -= loss;
         
         CheckIfGameOver();
     }
@@ -367,11 +365,9 @@ public class PlayerController : MovingObject
     public void GainStamina(int gain)
     {
         stamina += gain;
-        GameManager.instance.playerCurrentStamina += gain;
-        if (GameManager.instance.playerCurrentStamina.GetValueOrDefault() > GameManager.instance.playerMaxStamina)
+        if (stamina > GameManager.instance.playerMaxStamina)
         {
-           GainHealth(GameManager.instance.playerCurrentStamina.GetValueOrDefault() - GameManager.instance.playerMaxStamina);
-           GameManager.instance.playerCurrentStamina = GameManager.instance.playerMaxStamina;
+            stamina = GameManager.instance.playerMaxStamina;
         }
     }
 

@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
-
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] stairTiles;
@@ -34,8 +33,9 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;
 
-   private List<Vector3> itemSpots;
+    private List<Vector3> itemSpots;
 
+    
     public class Level
     {
         public int levelNumber;
@@ -369,12 +369,9 @@ public class BoardManager : MonoBehaviour
                 GameObject item = foodTiles[Random.Range(0, foodTiles.Length)];
                 item = Instantiate(item, pos, Quaternion.identity) as GameObject;
                 itemSpots.Add(pos);
-                
             }
             itemNumber--;
         }
-
- 
     }
 
     void AddEnemies()
@@ -397,7 +394,6 @@ public class BoardManager : MonoBehaviour
           }
           enemiesNumber--;
        }
-
     }
     public void SetupScene(int levelNumber)
     {

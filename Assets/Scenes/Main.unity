@@ -136,6 +136,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11491186, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: foodTiles.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 405648, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
       propertyPath: m_LocalPosition.x
       value: .0338012204
@@ -168,9 +172,90 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11491186, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: foodTiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 170528, guid: e4a81521bcc0eee4fa6a4826f1a38faf, type: 2}
+    - target: {fileID: 11491186, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: foodTiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 186624, guid: 2cb9492482f22d241adfd3a1c8768e5a, type: 2}
+    - target: {fileID: 11491186, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: foodTiles.Array.data[2]
+      value: 
+      objectReference: {fileID: 149128, guid: f6f9b9d86e4436242acf9f74bd4c1901, type: 2}
+    - target: {fileID: 11491186, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: foodTiles.Array.data[3]
+      value: 
+      objectReference: {fileID: 149016, guid: fc8f5f34498e0984fa06e934027f5cf8, type: 2}
+    - target: {fileID: 11491186, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: foodTiles.Array.data[4]
+      value: 
+      objectReference: {fileID: 177692, guid: 3e0ba5c80217d374dae0bda952b75f67, type: 2}
+    - target: {fileID: 11424032, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 1696751110}
+    - target: {fileID: 11424032, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
+      propertyPath: staminaText
+      value: 
+      objectReference: {fileID: 1563628803}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f3783dd7d87aa64ba5a3f4f36c4dfa2, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1563628802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1563628804}
+  - 132: {fileID: 1563628803}
+  m_Layer: 0
+  m_Name: StaminaText
+  m_TagString: StaminaText
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!132 &1563628803
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1563628802}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: 'Food Text
+
+'
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 1
+  m_RichText: 1
+--- !u!4 &1563628804
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1563628802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .00999999978, y: .850000024, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1001 &1580342511
 Prefab:
   m_ObjectHideFlags: 0
@@ -213,3 +298,56 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f957e9769ace4e4bb90096ad7507d0a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1696751109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1696751111}
+  - 132: {fileID: 1696751110}
+  m_Layer: 0
+  m_Name: HealthText
+  m_TagString: HealthText
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!132 &1696751110
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696751109}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: 'Health Text
+
+'
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 1
+  m_RichText: 1
+--- !u!4 &1696751111
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696751109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .00999999978, y: .949999988, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3

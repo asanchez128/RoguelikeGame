@@ -86,6 +86,7 @@ public class PlayerController : MovingObject
         if (other.tag == "Exit")
         {
             Invoke("Restart", restartLevelDelay);
+            PlayerPrefs.SetInt("Player Health", health);
             enabled = false;
         }
         else if (other.tag == "Food1")
@@ -122,13 +123,14 @@ public class PlayerController : MovingObject
     public void LoseHealth(int loss)
     {
         health -= loss;
-
+        GameManager.instance.playerCurrentHealth -= loss;
         CheckIfGameOver();
     }
 
     public void GainHealth(int gain)
     {
         health += gain;
+        GameManager.instance.playerCurrentHealth += gain;
         if (health > GameManager.instance.playerMaxHealth)
         {
             health = GameManager.instance.playerMaxHealth;
@@ -138,13 +140,15 @@ public class PlayerController : MovingObject
     public void LoseStamina(int loss)
     {
         stamina -= loss;
-
+        GameManager.instance.playerCurrentStamina -= loss;
+        
         CheckIfGameOver();
     }
 
     public void GainStamina(int gain)
     {
         stamina += gain;
+        GameManager.instance.playerCurrentStamina+= gain;
         if (stamina > GameManager.instance.playerMaxStamina)
         {
             stamina = GameManager.instance.playerMaxStamina;
@@ -162,7 +166,6 @@ public class PlayerController : MovingObject
             int levelStats = Random.Range(1, 4);
             if (levelStats != 1)
             {
-                GameManager.instance.playerMaxStamina += 50;
                 GainStamina(50);
                 Debug.Log("Max Stamina rose to " + GameManager.instance.playerMaxStamina);
             }

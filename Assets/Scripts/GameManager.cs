@@ -37,6 +37,13 @@ public class GameManager : MonoBehaviour
     public static int level = 1;
     public static int levelCap = 25;
 
+    public GUIText healthText;
+    public GUIText staminaText;
+
+   private float staminaTextPositionX = 0.01f;
+   private float healthTextPositionX = 0.01f;
+   private float healthTextPositionY = 0.85f;
+   private float staminaTextPositionY = 0.95f;
     void Awake()
     {
         if (instance == null)
@@ -48,8 +55,7 @@ public class GameManager : MonoBehaviour
         boardScript = GetComponent<BoardManager>();
         PlayerObject = GameObject.FindWithTag("Player");
         enemies = new List<EnemyController>();
-        InitGame();
-        
+        InitGame();        
     }
 
     void InitGame()
@@ -60,10 +66,12 @@ public class GameManager : MonoBehaviour
         {
            enemies.Clear();
         }
+
         boardScript.SetupScene(level);
         PlayerObject = GameObject.FindWithTag("Player");
         PlayerObject.transform.position = BoardManager.entrance;
         occupiedSpots.Clear();
+        
     }
 
     public void GameOver()
@@ -75,8 +83,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (playersTurn || enemiesMoving)
-            return;
+       if (playersTurn || enemiesMoving)
+       {
+          UpdateHealth();
+          UpdateStamina();
+          return; 
+       }
         else
         {
             StartCoroutine(MoveEnemies());
@@ -121,4 +133,14 @@ public class GameManager : MonoBehaviour
 
        enemiesMoving = false;
     }
+
+   private void UpdateHealth()
+   {
+      healthText.text = "Health: " + instance.playerMaxHealth;
+   }
+
+   private void UpdateStamina()
+   {
+      staminaText.text = "Stamina: " + instance.playerCurrentStamina;
+   }
 }

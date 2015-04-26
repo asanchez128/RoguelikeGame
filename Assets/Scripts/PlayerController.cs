@@ -8,8 +8,8 @@ public class PlayerController : MovingObject
 {
     public float restartLevelDelay = 1f;
 
-    public int stamina;                           
-    public int health;
+    public int? stamina;                           
+    public int? health;
     public int strength;
 
     public int turnsSinceHurt;
@@ -41,8 +41,6 @@ public class PlayerController : MovingObject
     {
         if (!GameManager.instance.playersTurn) 
             return;
-
-        
 
         int horizontal = 0;     //Used to store the horizontal move direction.
         int vertical = 0;       //Used to store the vertical move direction.
@@ -105,7 +103,7 @@ public class PlayerController : MovingObject
         if (other.tag == "Exit")
         {
             Invoke("Restart", restartLevelDelay);
-            PlayerPrefs.SetInt("Player Health", health);
+            PlayerPrefs.SetInt("Player Health", health.Value);
             enabled = false;
         }
         #region items
@@ -372,7 +370,7 @@ public class PlayerController : MovingObject
         GameManager.instance.playerCurrentStamina+= gain;
         if (stamina > GameManager.instance.playerMaxStamina)
         {
-            GainHealth(stamina - GameManager.instance.playerMaxStamina);
+            GainHealth(stamina.Value - GameManager.instance.playerMaxStamina);
             stamina = GameManager.instance.playerMaxStamina;
         }
     }

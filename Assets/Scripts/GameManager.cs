@@ -17,11 +17,11 @@ public class GameManager : MonoBehaviour
 
     public int playerPoints = 0;
 
-    public int playerMaxStamina = 200;
-    public int playerCurrentStamina = 200;
+    public int playerMaxStamina = 0;
+    public int? playerCurrentStamina = null;
 
-    public int playerMaxHealth = 50;
-    public int playerCurrentHealth = 50;
+    public int playerMaxHealth = 0;
+    public int? playerCurrentHealth = null;
 
     public int playerStrength = 10;
 
@@ -70,8 +70,14 @@ public class GameManager : MonoBehaviour
         healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
         staminaObject.AddComponent<GUIText>();
         staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
-      
-        InitGame();        
+        if (!instance.playerCurrentHealth.HasValue)
+       instance.playerCurrentHealth = 100;
+        if (!instance.playerCurrentStamina.HasValue)
+       instance.playerCurrentStamina = 200;
+       instance.playerMaxHealth = 100;
+       instance.playerMaxStamina = 200;
+
+       InitGame();        
     }
 
     void InitGame()
@@ -159,7 +165,7 @@ public class GameManager : MonoBehaviour
    private void UpdateHealth()
    {
       if (healthObject != null)
-         healthObject.GetComponent<GUIText>().text = "Health: " + instance.playerCurrentHealth;
+         healthObject.GetComponent<GUIText>().text = "Health: " + playerCurrentHealth;
       else
       {
          healthObject = new GameObject();
@@ -171,7 +177,7 @@ public class GameManager : MonoBehaviour
    private void UpdateStamina()
    {
       if (staminaObject != null)
-         staminaObject.GetComponent<GUIText>().text = "Stamina: " + instance.playerCurrentStamina;
+         staminaObject.GetComponent<GUIText>().text = "Stamina: " + playerCurrentStamina;
       else
       {
          staminaObject = new GameObject();

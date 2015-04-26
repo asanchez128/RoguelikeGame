@@ -1,15 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &131860
+--- !u!1 &189398
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 425210}
-  - 114: {fileID: 11450988}
-  - 114: {fileID: 11484952}
+  - 4: {fileID: 465848}
+  - 114: {fileID: 11466718}
+  - 114: {fileID: 11406452}
+  - 114: {fileID: 11484854}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17,74 +18,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &425210
+--- !u!4 &465848
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131860}
+  m_GameObject: {fileID: 189398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .0338012204, y: -5.8254227e-07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11450988
+--- !u!114 &11406452
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1edcd2e419fe7c14e90023f33fa12dde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardScript: {fileID: 0}
-  droppableLoot:
-  - {fileID: 170528, guid: e4a81521bcc0eee4fa6a4826f1a38faf, type: 2}
-  - {fileID: 186624, guid: 2cb9492482f22d241adfd3a1c8768e5a, type: 2}
-  - {fileID: 149016, guid: fc8f5f34498e0984fa06e934027f5cf8, type: 2}
-  - {fileID: 177692, guid: 3e0ba5c80217d374dae0bda952b75f67, type: 2}
-  - {fileID: 149128, guid: f6f9b9d86e4436242acf9f74bd4c1901, type: 2}
-  - {fileID: 125038, guid: 2136211bc385d164999e30c67a277683, type: 2}
-  - {fileID: 135042, guid: 2eec8df13c7df1a45856cb3c8ba8ca6b, type: 2}
-  - {fileID: 184326, guid: 337bbcef00a590248a5f01d384260ca9, type: 2}
-  - {fileID: 144182, guid: 357a8ad303b3f1a49b796f615eaecdea, type: 2}
-  - {fileID: 146602, guid: 4242a95d53cc0f743988a733385caf43, type: 2}
-  - {fileID: 158058, guid: 53bdd6adb83397044b55482baa3a5740, type: 2}
-  - {fileID: 106426, guid: 57e21bc7960233142b834d5955b04377, type: 2}
-  - {fileID: 181866, guid: 5f0c08a870d816c4797e5d829f9e00df, type: 2}
-  - {fileID: 104214, guid: 933c25a45f38a3547a9d4703d882a423, type: 2}
-  - {fileID: 146128, guid: a656c3859d2cab44bb54e5c5365f5de0, type: 2}
-  - {fileID: 163316, guid: a9d07bf36e9583445b9c866719ccfe64, type: 2}
-  - {fileID: 143102, guid: b701d224b28b52e4e8d9d6c59f55db51, type: 2}
-  - {fileID: 146266, guid: c77504a0dcff9b348b46cae018145814, type: 2}
-  - {fileID: 170866, guid: da69462af2fa7ed4e83d7176c908ad09, type: 2}
-  - {fileID: 164070, guid: dd90cb7f72638a744b6b39ab4d1de897, type: 2}
-  playerCurrentHealth: 50
-  playerCurrentStamina: 200
-  playerMaxHealth: 50
-  playerMaxStamina: 200
-  playerLevel: 1
-  enemiesKilled: 0
-  playerPoints: 0
-  playerStrength: 5
-  enemyBaseHealth: 30
-  enemyBaseStrength: 2
-  playersTurn: 1
-  PlayerObject: {fileID: 165190, guid: b8f9ebb2ffe065a43b3211c22e3a3785, type: 2}
-  turnDelay: .100000001
-  enemies: []
-  healthObject: {fileID: 0}
-  staminaObject: {fileID: 0}
-  waitingForInput: 0
---- !u!114 &11484952
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131860}
+  m_GameObject: {fileID: 189398}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d63a238f60450d54fbbed4c03294d0e9, type: 3}
@@ -136,6 +87,66 @@ MonoBehaviour:
   - {fileID: 144182, guid: 357a8ad303b3f1a49b796f615eaecdea, type: 2}
   - {fileID: 106426, guid: 57e21bc7960233142b834d5955b04377, type: 2}
   - {fileID: 163316, guid: a9d07bf36e9583445b9c866719ccfe64, type: 2}
+--- !u!114 &11466718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edcd2e419fe7c14e90023f33fa12dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardScript: {fileID: 0}
+  droppableLoot:
+  - {fileID: 170528, guid: e4a81521bcc0eee4fa6a4826f1a38faf, type: 2}
+  - {fileID: 186624, guid: 2cb9492482f22d241adfd3a1c8768e5a, type: 2}
+  - {fileID: 149016, guid: fc8f5f34498e0984fa06e934027f5cf8, type: 2}
+  - {fileID: 177692, guid: 3e0ba5c80217d374dae0bda952b75f67, type: 2}
+  - {fileID: 149128, guid: f6f9b9d86e4436242acf9f74bd4c1901, type: 2}
+  - {fileID: 125038, guid: 2136211bc385d164999e30c67a277683, type: 2}
+  - {fileID: 135042, guid: 2eec8df13c7df1a45856cb3c8ba8ca6b, type: 2}
+  - {fileID: 184326, guid: 337bbcef00a590248a5f01d384260ca9, type: 2}
+  - {fileID: 144182, guid: 357a8ad303b3f1a49b796f615eaecdea, type: 2}
+  - {fileID: 146602, guid: 4242a95d53cc0f743988a733385caf43, type: 2}
+  - {fileID: 158058, guid: 53bdd6adb83397044b55482baa3a5740, type: 2}
+  - {fileID: 106426, guid: 57e21bc7960233142b834d5955b04377, type: 2}
+  - {fileID: 181866, guid: 5f0c08a870d816c4797e5d829f9e00df, type: 2}
+  - {fileID: 104214, guid: 933c25a45f38a3547a9d4703d882a423, type: 2}
+  - {fileID: 146128, guid: a656c3859d2cab44bb54e5c5365f5de0, type: 2}
+  - {fileID: 163316, guid: a9d07bf36e9583445b9c866719ccfe64, type: 2}
+  - {fileID: 143102, guid: b701d224b28b52e4e8d9d6c59f55db51, type: 2}
+  - {fileID: 146266, guid: c77504a0dcff9b348b46cae018145814, type: 2}
+  - {fileID: 170866, guid: da69462af2fa7ed4e83d7176c908ad09, type: 2}
+  - {fileID: 164070, guid: dd90cb7f72638a744b6b39ab4d1de897, type: 2}
+  playerCurrentHealth: 50
+  playerCurrentStamina: 200
+  playerMaxHealth: 50
+  playerMaxStamina: 200
+  playerLevel: 1
+  enemiesKilled: 0
+  playerPoints: 0
+  playerStrength: 5
+  enemyBaseHealth: 30
+  enemyBaseStrength: 2
+  playersTurn: 1
+  PlayerObject: {fileID: 165190, guid: b8f9ebb2ffe065a43b3211c22e3a3785, type: 2}
+  turnDelay: .100000001
+  enemies: []
+  waitingForInput: 0
+--- !u!114 &11484854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a74172676ed1942a3ffb9a21ef3d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLines: 8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -145,5 +156,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 131860}
+  m_RootGameObject: {fileID: 189398}
   m_IsPrefabParent: 1

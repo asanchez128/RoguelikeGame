@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
 
+    public static PlayerLog playerLog;
+
     private Text FloorNumberText;
     private Text PlayerLevelText;
     private Text HealthText;
@@ -42,15 +44,7 @@ public class GameManager : MonoBehaviour
     public static int level = 1;
     public static int levelCap = 25;
 
-    //public GameObject healthObject;
-    //public GameObject staminaObject;
-
-   private float staminaTextPositionX = 0.01f;
-   private float healthTextPositionX = 0.01f;
-   private float healthTextPositionY = 0.85f;
-   private float staminaTextPositionY = 0.95f;
-
-   public bool waitingForInput = false;
+    public bool waitingForInput = false;
 
     void Awake()
     {
@@ -59,19 +53,15 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
+        playerLog = GetComponent<PlayerLog>();
+        DontDestroyOnLoad(playerLog);
+
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         PlayerObject = GameObject.FindWithTag("Player");
 
         enemies = new List<EnemyController>();
         foundPotions = new Dictionary<int,int>();
-
-        //healthObject = new GameObject();
-        //staminaObject = new GameObject();
-        //healthObject.AddComponent<GUIText>();
-        //healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
-        //staminaObject.AddComponent<GUIText>();
-        //staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
 
         InitGame();        
     }
@@ -121,15 +111,24 @@ public class GameManager : MonoBehaviour
         }
         UpdateHealth(0);
         UpdateStamina(0);
+
+        waitingForInput = true;
+        playersTurn = true;
+        playerLog.NewMessage("Restart the game?  (y/n)");
+        StartCoroutine(WaitForKeyPress());
     }
 
     void Update()
     {
+        if (!playerLog)
+        {
+            playerLog = GetComponent<PlayerLog>();
+        }
        if (Input.GetKeyDown(KeyCode.R))
        {
            waitingForInput = true;
-           playersTurn = false;
-           Debug.Log("Restart the game?  (y/n)");
+           playersTurn = true;
+           playerLog.NewMessage("Restart the game?  (y/n)");
            StartCoroutine(WaitForKeyPress());
        }
         if (!waitingForInput)
@@ -155,6 +154,10 @@ public class GameManager : MonoBehaviour
         if (Input.inputString[0] == 'y' || Input.inputString[0] == 'Y')
         {
             Restart();
+        }
+        else
+        {
+            Application.Quit();
         }
 
     }
@@ -189,7 +192,7 @@ public class GameManager : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
         UpdateHealth(playerCurrentHealth);
         UpdateStamina(playerCurrentStamina);
-        FloorNumberText.text = "Floor " + level;
+        UpdateFloorNumber();
     }
 
     public void AddEnemyToList(EnemyController script)
@@ -228,14 +231,6 @@ public class GameManager : MonoBehaviour
 
    public void UpdateHealth(int currentHealth)
    {
-       //if (healthObject != null)
-       //    healthObject.GetComponent<GUIText>().text = "Health: " + currentHealth;
-       //else
-       //{
-       //    healthObject = new GameObject();
-       //    healthObject.AddComponent<GUIText>();
-       //    healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
-       //}
        if(!HealthText)
            HealthText = GameObject.Find("HealthText").GetComponent<Text>();
        HealthText.text = "Health:  " + currentHealth;
@@ -243,14 +238,6 @@ public class GameManager : MonoBehaviour
 
    public void UpdateStamina(int currentStamina)
    {
-       //if (staminaObject != null)
-       //    staminaObject.GetComponent<GUIText>().text = "Stamina: " + currentStamina;
-       //else
-       //{
-       //    staminaObject = new GameObject();
-       //    staminaObject.AddComponent<GUIText>();
-       //    staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
-       //}
        if (!StaminaText)
             StaminaText = GameObject.Find("StaminaText").GetComponent<Text>();
        StaminaText.text = "Stamina:  " + currentStamina;
@@ -268,5 +255,12 @@ public class GameManager : MonoBehaviour
         if (!ScoreText)
             ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         ScoreText.text = "Score:  " + playerPoints;
+    }
+
+    public void UpdateFloorNumber()
+    {
+        if (!FloorNumberText)
+            FloorNumberText = GameObject.Find("FloorNumberText").GetComponent<Text>();
+        FloorNumberText.text = "Floor " + level;
     }
 }

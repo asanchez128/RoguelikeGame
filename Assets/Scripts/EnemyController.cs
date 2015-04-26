@@ -100,28 +100,14 @@ public class EnemyController : MovingObject {
        {
            GameManager.instance.enemiesKilled++;
            GameManager.instance.playerPoints += enemyPoints;
-           Debug.Log("The "+ gameObject.tag + " has been slain.");
+           GameManager.playerLog.NewMessage("The " + gameObject.tag + " has been slain.");
 
            if (itemDrop != null)
            {
-               Vector3 pos; 
-
-               bool dropped = false;
-               int tries = 100;
-               while(!dropped && tries > 0)
-               {
-                   pos = new Vector3(gameObject.transform.position.x + Random.Range(-1, 2),
-                                     gameObject.transform.position.y + Random.Range(-1, 2), 0f);
-
-                   RaycastHit2D hit = Physics2D.Linecast(pos, pos, walls);
-                    if (hit == null)
-                    {
-                        Instantiate(itemDrop, pos, Quaternion.identity);
-                        dropped = true;
-                    }
-                    tries--;
-               }
-               
+               Vector3 pos = new Vector3(gameObject.transform.position.x + Random.Range(-1, 2),
+                                         gameObject.transform.position.y + Random.Range(-1, 2), 0f);
+                   
+               Instantiate(itemDrop, pos, Quaternion.identity);
            }
            if (GameManager.occupiedSpots.Contains(gameObject.transform.position))
                GameManager.occupiedSpots.Remove(gameObject.transform.position);
@@ -138,7 +124,7 @@ public class EnemyController : MovingObject {
           int attack = enemyStrength + Random.Range(-1, 2);
           if (attack < 0)
               attack = 0;
-          Debug.Log("The "+ gameObject.tag +" attacks you!  (-" + attack + " hp)");
+          GameManager.playerLog.NewMessage("The " + gameObject.tag + " attacks you!  (-" + attack + " hp)");
           hitPlayer.LoseHealth(attack);     
        }
    }

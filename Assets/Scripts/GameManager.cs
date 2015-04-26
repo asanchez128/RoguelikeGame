@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public static int levelCap = 25;
 
     public bool waitingForInput = false;
+    public bool dead = false;
 
     void Awake()
     {
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        dead = true;
         if (PlayerObject != null)
         {
             PlayerObject.SetActive(false);
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
         {
             playerLog = GetComponent<PlayerLog>();
         }
-       if (Input.GetKeyDown(KeyCode.R))
+       if (!dead && Input.GetKeyDown(KeyCode.R))
        {
            waitingForInput = true;
            playersTurn = true;
@@ -153,6 +155,7 @@ public class GameManager : MonoBehaviour
         waitingForInput = false;
         if (Input.inputString[0] == 'y' || Input.inputString[0] == 'Y')
         {
+            dead = false;
             Restart();
         }
         else

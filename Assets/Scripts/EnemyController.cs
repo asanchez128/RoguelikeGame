@@ -6,6 +6,8 @@ public class EnemyController : MovingObject {
    private int enemyStrength;
    private int enemyHealth;
 
+   private LayerMask walls;
+
    private int enemyPoints;
 
    public GameObject itemDrop;
@@ -30,16 +32,41 @@ public class EnemyController : MovingObject {
     {
         int xDir = 0;
         int yDir = 0;
+        Vector2 pos = gameObject.transform.position;
+        Vector2 target = GameObject.FindWithTag("Player").transform.position;
 
-        
-       
-        //wander aimlessly
-        xDir = Random.Range(-1, 2);
-        yDir = Random.Range(-1, 2);
-        while (xDir != 0 && yDir != 0)
+        RaycastHit2D hit = Physics2D.Linecast(pos, target, walls);
+
+        if (hit.transform == null && Random.Range(1,3) == 1)
         {
+            //can see player
+            if (pos.x < target.x)
+                xDir = 1;
+            else if (pos.x > target.x)
+                xDir = -1;
+
+            if (pos.y < target.y)
+                yDir = 1;
+            else if (pos.y > target.y)
+                yDir = -1;
+
+            if (xDir != 0 && yDir != 0)
+            {
+                if (Random.Range(1, 3) == 1)
+                    xDir = 0;
+                else
+                    yDir = 0;
+            }
+        }
+        else
+        {//wander aimlessly
             xDir = Random.Range(-1, 2);
             yDir = Random.Range(-1, 2);
+            while (xDir != 0 && yDir != 0)
+            {
+                xDir = Random.Range(-1, 2);
+                yDir = Random.Range(-1, 2);
+            }
         }
        base.AttemptMove<PlayerController>(xDir, yDir);
    }

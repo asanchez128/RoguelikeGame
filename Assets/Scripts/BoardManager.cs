@@ -17,8 +17,6 @@ public class BoardManager : MonoBehaviour
     public GameObject[] enemyTiles;
     public GameObject[] potionTiles;
 
-    public static List<Level> levels = new List<Level>();
-
     public static List<Vector3> floors = new List<Vector3>();
     public static List<Vector3> walls = new List<Vector3>();
     public static Vector3 exit = new Vector3();
@@ -412,8 +410,32 @@ public class BoardManager : MonoBehaviour
           enemiesNumber--;
        }
     }
-    public void SetupScene(int levelNumber)
+
+    public void BuildWinningScreen()
     {
+        rooms.Add(new Room(new Vector3(0, 0, 0), 23, 23));
+        
+        entrance = new Vector3(11, 1, 0);
+
+        itemSpots = new List<Vector3>();
+        itemSpots.Add(entrance);
+
+        int treasureNumber = 430;
+        while (treasureNumber > 0)
+        {
+            Vector3 pos = floors[Random.Range(0, floors.Count)];
+            if (!itemSpots.Contains(pos))
+            {
+                GameObject item = treasureTiles[Random.Range(0, treasureTiles.Length)];
+                item = Instantiate(item, pos, Quaternion.identity) as GameObject;
+                itemSpots.Add(pos);
+            }
+            treasureNumber--;
+        }
+    }
+
+    public void SetupScene(int levelNumber)
+    {   
         floors.Clear();
         walls.Clear();
 
@@ -423,12 +445,18 @@ public class BoardManager : MonoBehaviour
         rooms.Clear();
         
         allPositions.Clear();
-        
-        BuildRooms(levelNumber);
-        AddStairs();
-        AddItems();
-        AddEnemies(); 
-        levels.Add(new Level(levelNumber));
+
+        if (levelNumber <= GameManager.levelCap)
+        {
+            BuildRooms(levelNumber);
+            AddStairs();
+            AddItems();
+            AddEnemies();
+        }
+        else
+        {
+            BuildWinningScreen();
+        }
         DisplayScene();
     }
 }

@@ -12,6 +12,8 @@ public class PlayerController : MovingObject
     public int health;
     public int strength;
 
+    public int turnsSinceHurt;
+
     private Dictionary<int, int> potions;
     
 
@@ -21,6 +23,7 @@ public class PlayerController : MovingObject
         health = GameManager.instance.playerCurrentHealth;
         strength = GameManager.instance.playerStrength;
         potions = GameManager.instance.foundPotions;
+        turnsSinceHurt = 0;
         
         base.Start();
     }
@@ -39,6 +42,8 @@ public class PlayerController : MovingObject
         if (!GameManager.instance.playersTurn) 
             return;
 
+        
+
         int horizontal = 0;     //Used to store the horizontal move direction.
         int vertical = 0;       //Used to store the vertical move direction.
 
@@ -54,6 +59,12 @@ public class PlayerController : MovingObject
 
         if (horizontal != 0 || vertical != 0)
         {
+            if (turnsSinceHurt > 2 && turnsSinceHurt % 3 == 0)
+            {
+                GainHealth(1);
+            }
+            turnsSinceHurt++;
+
             AttemptMove<EnemyController>(horizontal, vertical);
             GameManager.instance.playersTurn = false;
         }
@@ -332,6 +343,7 @@ public class PlayerController : MovingObject
     public void LoseHealth(int loss)
     {
         health -= loss;
+        turnsSinceHurt = 0;
         GameManager.instance.playerCurrentHealth -= loss;
         CheckIfGameOver();
     }

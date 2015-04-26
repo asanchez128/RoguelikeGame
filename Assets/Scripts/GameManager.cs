@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public int enemyBaseHealth = 30;
 
-    public int enemyBaseStrength = 5;
+    public int enemyBaseStrength = 2;
 
     [HideInInspector] public bool playersTurn = true;
 
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public static List<Vector2> occupiedSpots = new List<Vector2>();
 
-    public static int level = 1;
+   public static int level = 1;
     public static int levelCap = 25;
 
     public GameObject healthObject;

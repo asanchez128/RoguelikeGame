@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public int enemyBaseHealth = 30;
 
-    public int enemyBaseStrength = 5;
+    public int enemyBaseStrength = 2;
 
     [HideInInspector] public bool playersTurn = true;
 
@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
     public static int level = 1;
     public static int levelCap = 25;
 
-    public GUIText healthText;
-    public GUIText staminaText;
+    //public GUIText healthText;
+    //public GUIText staminaText;
 
    private float staminaTextPositionX = 0.01f;
    private float healthTextPositionX = 0.01f;
@@ -151,11 +151,11 @@ public class GameManager : MonoBehaviour
 
    private void UpdateHealth()
    {
-      healthText.text = "Health: " + instance.playerMaxHealth;
+      //healthText.text = "Health: " + instance.playerMaxHealth;
    }
 
    private void UpdateStamina()
    {
-      staminaText.text = "Stamina: " + instance.playerCurrentStamina;
+      //staminaText.text = "Stamina: " + instance.playerCurrentStamina;
    }
 }

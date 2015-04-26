@@ -12,46 +12,46 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<int,int> foundPotions;
     
-    public int playerLevel = 10;
-    public int enemiesKilled = 0;
+    public int playerLevel;
+    public int enemiesKilled;
 
-    public int playerPoints = 0;
+    public int playerPoints;
 
-    public int playerMaxStamina = 0;
-    public int? playerCurrentStamina = null;
+    public int playerMaxStamina;
+    public int? playerCurrentStamina;
 
-    public int playerMaxHealth = 0;
-    public int? playerCurrentHealth = null;
+    public int playerMaxHealth;
+    public int? playerCurrentHealth;
 
-    public int playerStrength = 10;
+    public int playerStrength;
 
-    public int enemyBaseHealth = 30;
+    public int enemyBaseHealth;
 
-    public int enemyBaseStrength = 2;
+    public int enemyBaseStrength;
 
     [HideInInspector] public bool playersTurn = true;
 
     public GameObject PlayerObject;
     public float turnDelay = 0.05f; 
-    public int debugCounter = 0;
 
     public List<EnemyController> enemies;
     private bool enemiesMoving;
 
     public static List<Vector2> occupiedSpots = new List<Vector2>();
 
-   public static int level = 1;
+    public static int level = 1;
     public static int levelCap = 25;
 
     public GameObject healthObject;
-   public GameObject staminaObject;
-   //public GUIText healthText;
-    //public GUIText staminaText;
+    public GameObject staminaObject;
 
    private float staminaTextPositionX = 0.01f;
    private float healthTextPositionX = 0.01f;
    private float healthTextPositionY = 0.85f;
    private float staminaTextPositionY = 0.95f;
+
+   public bool waitingForInput = false;
+
     void Awake()
     {
         if (instance == null)
@@ -70,14 +70,19 @@ public class GameManager : MonoBehaviour
         healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
         staminaObject.AddComponent<GUIText>();
         staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
-        if (!instance.playerCurrentHealth.HasValue)
-       instance.playerCurrentHealth = 100;
-        if (!instance.playerCurrentStamina.HasValue)
-       instance.playerCurrentStamina = 200;
-       instance.playerMaxHealth = 100;
-       instance.playerMaxStamina = 200;
 
-       InitGame();        
+        instance.playerCurrentHealth = 100;  
+        instance.playerCurrentStamina = 200;
+        instance.playerMaxHealth = 100;
+        instance.playerMaxStamina = 200;
+        playerLevel = 1;
+        enemiesKilled = 0;
+        playerPoints = 0;
+        playerStrength = 10;
+        enemyBaseHealth = 30;
+        enemyBaseStrength = 2;
+
+        InitGame();        
     }
 
     void InitGame()
@@ -100,23 +105,65 @@ public class GameManager : MonoBehaviour
         if (PlayerObject != null)
         {
             PlayerObject.SetActive(false);
-            Destroy(PlayerObject.gameObject);
         }
-        enabled = false;
     }
 
     void Update()
     {
-       if (playersTurn || enemiesMoving)
+       if (Input.GetKeyDown(KeyCode.R))
        {
-          UpdateHealth();
-          UpdateStamina();
-          return; 
+           waitingForInput = true;
+           playersTurn = false;
+           Debug.Log("Restart the game?  (y/n)");
+           StartCoroutine(WaitForKeyPress());
        }
-        else
+        if (!waitingForInput)
         {
-            StartCoroutine(MoveEnemies());
+            if (playersTurn || enemiesMoving)
+            {
+                UpdateHealth();
+                UpdateStamina();
+                return; 
+            }
+            else
+            {
+                StartCoroutine(MoveEnemies());
+            }
         }
+    }
+
+    public IEnumerator WaitForKeyPress()
+    {
+        while (!Input.GetKeyDown(KeyCode.Y) && !Input.GetKeyDown(KeyCode.N))
+        {
+            yield return null;
+        }
+        waitingForInput = false;
+        if (Input.inputString[0] == 'y' || Input.inputString[0] == 'Y')
+        {
+            Restart();
+        }
+
+    }
+
+    public void Restart()
+    {
+        instance.playerCurrentHealth = 100;
+        instance.playerCurrentStamina = 200;
+        instance.playerMaxHealth = 100;
+        instance.playerMaxStamina = 200;
+        playerLevel = 10;
+        enemiesKilled = 0;
+        playerPoints = 0;
+        playerStrength = 10;
+        enemyBaseHealth = 30;
+        enemyBaseStrength = 2;
+        PlayerObject = GameObject.FindWithTag("Player");
+        enemies.Clear();
+        foundPotions.Clear();
+        level = 1;
+
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public void NextLevel()

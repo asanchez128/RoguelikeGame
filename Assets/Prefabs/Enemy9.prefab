@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11420872}
   m_Layer: 9
   m_Name: Enemy9
-  m_TagString: Goblin
+  m_TagString: Enemy9
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

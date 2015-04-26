@@ -26,12 +26,12 @@ public class EnemyController : MovingObject {
        base.Start();
    }
 
-    public void MoveEnemy()
-    {
-        int xDir = 0;
-        int yDir = 0;
+   public void MoveEnemy()
+   {
+       int xDir = 0;
+       int yDir = 0;
 
-        
+       //todo:  track player if visible
        
         //wander aimlessly
         xDir = Random.Range(-1, 2);

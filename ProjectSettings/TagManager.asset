@@ -37,6 +37,7 @@ TagManager:
   - Potion10
   - Potion11
   - Potion12
+  - Spider
   layers:
   - Default
   - TransparentFX

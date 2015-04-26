@@ -40,6 +40,8 @@ public class PlayerController : MovingObject
     {
         GameManager.instance.UpdateHealth(health);
         GameManager.instance.UpdateStamina(stamina);
+        GameManager.instance.UpdatePlayerLevel();
+        GameManager.instance.UpdatePlayerScore();
 
         if (!GameManager.instance.playersTurn) 
             return;
@@ -392,6 +394,7 @@ public class PlayerController : MovingObject
         Debug.Log("You have leveled down to level " + GameManager.instance.playerLevel + "...");
         if (GameManager.instance.playerLevel <= 0)
             health = 0;
+        GameManager.instance.UpdatePlayerLevel();
         CheckIfGameOver();
     }
 
@@ -422,6 +425,7 @@ public class PlayerController : MovingObject
             strength += 2;
             Debug.Log("Strength rose to " + GameManager.instance.playerStrength + ".");
         }
+        GameManager.instance.UpdatePlayerLevel();
     }
 
     private void CheckIfGameOver()

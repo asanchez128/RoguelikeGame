@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
-
-using System.Collections.Generic;       //Allows us to use Lists. 
+using System.Collections.Generic;
     
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public BoardManager boardScript;
+
+    private Text FloorNumberText;
+    private Text PlayerLevelText;
+    private Text HealthText;
+    private Text StaminaText;
+    private Text ScoreText;
 
     public GameObject[] droppableLoot;
 
@@ -36,8 +42,8 @@ public class GameManager : MonoBehaviour
     public static int level = 1;
     public static int levelCap = 25;
 
-    public GameObject healthObject;
-    public GameObject staminaObject;
+    //public GameObject healthObject;
+    //public GameObject staminaObject;
 
    private float staminaTextPositionX = 0.01f;
    private float healthTextPositionX = 0.01f;
@@ -56,14 +62,16 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         PlayerObject = GameObject.FindWithTag("Player");
+
         enemies = new List<EnemyController>();
         foundPotions = new Dictionary<int,int>();
-        healthObject = new GameObject();
-        staminaObject = new GameObject();
-        healthObject.AddComponent<GUIText>();
-        healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
-        staminaObject.AddComponent<GUIText>();
-        staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
+
+        //healthObject = new GameObject();
+        //staminaObject = new GameObject();
+        //healthObject.AddComponent<GUIText>();
+        //healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
+        //staminaObject.AddComponent<GUIText>();
+        //staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
 
         InitGame();        
     }
@@ -77,9 +85,31 @@ public class GameManager : MonoBehaviour
            enemies.Clear();
         }
 
+        FloorNumberText = GameObject.Find("FloorNumberText").GetComponent<Text>();
+        FloorNumberText.text = "Floor " + level;
+
+        PlayerLevelText = GameObject.Find("PlayerLevelText").GetComponent<Text>();
+        PlayerLevelText.text = "Level " + playerLevel;
+
+        HealthText = GameObject.Find("HealthText").GetComponent<Text>();
+        HealthText.text = "Health:  " + playerCurrentHealth;
+        
+        StaminaText = GameObject.Find("StaminaText").GetComponent<Text>();
+        StaminaText.text = "Stamina:  " + playerCurrentStamina;
+        
+        ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        ScoreText.text = "Score:  " + playerPoints;
+
         boardScript.SetupScene(level);
         PlayerObject = GameObject.FindWithTag("Player");
         PlayerObject.transform.position = BoardManager.entrance;
+
+        DontDestroyOnLoad(FloorNumberText);
+        DontDestroyOnLoad(PlayerLevelText);
+        DontDestroyOnLoad(HealthText);
+        DontDestroyOnLoad(StaminaText);
+        DontDestroyOnLoad(ScoreText);
+
         occupiedSpots.Clear();     
     }
 
@@ -159,6 +189,7 @@ public class GameManager : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
         UpdateHealth(playerCurrentHealth);
         UpdateStamina(playerCurrentStamina);
+        FloorNumberText.text = "Floor " + level;
     }
 
     public void AddEnemyToList(EnemyController script)
@@ -197,25 +228,45 @@ public class GameManager : MonoBehaviour
 
    public void UpdateHealth(int currentHealth)
    {
-       if (healthObject != null)
-           healthObject.GetComponent<GUIText>().text = "Health: " + currentHealth;
-       else
-       {
-           healthObject = new GameObject();
-           healthObject.AddComponent<GUIText>();
-           healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
-       }
+       //if (healthObject != null)
+       //    healthObject.GetComponent<GUIText>().text = "Health: " + currentHealth;
+       //else
+       //{
+       //    healthObject = new GameObject();
+       //    healthObject.AddComponent<GUIText>();
+       //    healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
+       //}
+       if(!HealthText)
+           HealthText = GameObject.Find("HealthText").GetComponent<Text>();
+       HealthText.text = "Health:  " + currentHealth;
    }
 
    public void UpdateStamina(int currentStamina)
    {
-       if (staminaObject != null)
-           staminaObject.GetComponent<GUIText>().text = "Stamina: " + currentStamina;
-       else
-       {
-           staminaObject = new GameObject();
-           staminaObject.AddComponent<GUIText>();
-           staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
-       }
+       //if (staminaObject != null)
+       //    staminaObject.GetComponent<GUIText>().text = "Stamina: " + currentStamina;
+       //else
+       //{
+       //    staminaObject = new GameObject();
+       //    staminaObject.AddComponent<GUIText>();
+       //    staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
+       //}
+       if (!StaminaText)
+            StaminaText = GameObject.Find("StaminaText").GetComponent<Text>();
+       StaminaText.text = "Stamina:  " + currentStamina;
    }
+
+    public void UpdatePlayerLevel()
+   {
+        if (!PlayerLevelText)
+            PlayerLevelText = GameObject.Find("PlayerLevelText").GetComponent<Text>();
+        PlayerLevelText.text = "Level " + playerLevel;
+   }
+
+    public void UpdatePlayerScore()
+    {
+        if (!ScoreText)
+            ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        ScoreText.text = "Score:  " + playerPoints;
+    }
 }

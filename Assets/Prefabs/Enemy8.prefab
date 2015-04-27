@@ -74,6 +74,9 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 768
+  walls:
+    serializedVersion: 2
+    m_Bits: 256
   itemDrop: {fileID: 0}
 --- !u!212 &21215640
 SpriteRenderer:

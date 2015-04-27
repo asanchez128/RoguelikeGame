@@ -6,7 +6,7 @@ public class EnemyController : MovingObject {
    private int enemyStrength;
    private int enemyHealth;
 
-   private LayerMask walls;
+   public LayerMask walls;
 
    private int enemyPoints;
 
@@ -18,7 +18,7 @@ public class EnemyController : MovingObject {
        GameManager.instance.AddEnemyToList(this);
 
        int randHealth = Random.Range(-5, 6);
-       int randStrength = Random.Range(-2, 3);
+       int randStrength = Random.Range(-1, 2);
 
        enemyHealth = GameManager.instance.enemyBaseHealth + randHealth;
        enemyStrength = GameManager.instance.enemyBaseStrength + randStrength;
@@ -33,33 +33,49 @@ public class EnemyController : MovingObject {
         int xDir = 0;
         int yDir = 0;
         Vector2 pos = gameObject.transform.position;
-        Vector2 target = GameObject.FindWithTag("Player").transform.position;
 
-        RaycastHit2D hit = Physics2D.Linecast(pos, target, walls);
-
-        if (hit.transform == null && Random.Range(1,3) == 1)
+        Vector2 target;
+        if (GameObject.FindWithTag("Player"))
         {
-            //can see player
-            if (pos.x < target.x)
-                xDir = 1;
-            else if (pos.x > target.x)
-                xDir = -1;
+            target = GameObject.FindWithTag("Player").transform.position;
 
-            if (pos.y < target.y)
-                yDir = 1;
-            else if (pos.y > target.y)
-                yDir = -1;
+            RaycastHit2D hit = Physics2D.Linecast(pos, target, walls);
 
-            if (xDir != 0 && yDir != 0)
+            if (hit.transform == null && Random.Range(1, 3) == 1)
             {
-                if (Random.Range(1, 3) == 1)
-                    xDir = 0;
-                else
-                    yDir = 0;
+                //can see player
+                if (pos.x < target.x)
+                    xDir = 1;
+                else if (pos.x > target.x)
+                    xDir = -1;
+
+                if (pos.y < target.y)
+                    yDir = 1;
+                else if (pos.y > target.y)
+                    yDir = -1;
+
+                if (xDir != 0 && yDir != 0)
+                {
+                    if (Random.Range(1, 3) == 1)
+                        xDir = 0;
+                    else
+                        yDir = 0;
+                }
             }
+            else
+            {//wander aimlessly
+                xDir = Random.Range(-1, 2);
+                yDir = Random.Range(-1, 2);
+                while (xDir != 0 && yDir != 0)
+                {
+                    xDir = Random.Range(-1, 2);
+                    yDir = Random.Range(-1, 2);
+                }
+            }
+
         }
         else
-        {//wander aimlessly
+        {//wander aimlessly again
             xDir = Random.Range(-1, 2);
             yDir = Random.Range(-1, 2);
             while (xDir != 0 && yDir != 0)
@@ -83,17 +99,18 @@ public class EnemyController : MovingObject {
        {
            GameManager.instance.enemiesKilled++;
            GameManager.instance.playerPoints += enemyPoints;
-           Debug.Log("The "+ gameObject.tag + " has been slain.");
+           GameManager.playerLog.NewMessage("The " + gameObject.tag + " has been slain.");
 
            if (itemDrop != null)
            {
                Vector3 pos = new Vector3(gameObject.transform.position.x + Random.Range(-1, 2),
                                          gameObject.transform.position.y + Random.Range(-1, 2), 0f);
-
+                   
                Instantiate(itemDrop, pos, Quaternion.identity);
            }
            if (GameManager.occupiedSpots.Contains(gameObject.transform.position))
                GameManager.occupiedSpots.Remove(gameObject.transform.position);
+           gameObject.SetActive(false);
            Destroy(gameObject);
        }
    }
@@ -103,10 +120,10 @@ public class EnemyController : MovingObject {
        if (typeof (T) == typeof (PlayerController))
        {
           PlayerController hitPlayer = component as PlayerController;
-          int attack = enemyStrength + Random.Range(-2, 3);
+          int attack = enemyStrength + Random.Range(-1, 2);
           if (attack < 0)
               attack = 0;
-          Debug.Log("The "+ gameObject.tag +" attacks you!  (-" + attack + " hp)");
+          GameManager.playerLog.NewMessage("The " + gameObject.tag + " attacks you!  (-" + attack + " hp)");
           hitPlayer.LoseHealth(attack);     
        }
    }

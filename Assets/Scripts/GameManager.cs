@@ -28,8 +28,10 @@ public class GameManager : MonoBehaviour
     public int enemiesKilled = 0;
     public int playerPoints = 0;
     public int playerStrength = 5;
-    public int enemyBaseHealth = 10;
+    public int enemyBaseHealth = 20;
     public int enemyBaseStrength = 2;
+
+    public GameObject hitAnim;
 
     [HideInInspector] public bool playersTurn = true;
 
@@ -175,7 +177,7 @@ public class GameManager : MonoBehaviour
         enemiesKilled = 0;
         playerPoints = 0;
         playerStrength = 5;
-        enemyBaseHealth = 30;
+        enemyBaseHealth = 20;
         enemyBaseStrength = 2;
         PlayerObject = GameObject.FindWithTag("Player");
         enemies.Clear();
@@ -189,8 +191,12 @@ public class GameManager : MonoBehaviour
     {
         level++;
 
-        enemyBaseHealth += 5;
-        enemyBaseStrength += 2;
+        if (level%2==0)
+        {
+            enemyBaseHealth += 3;
+            enemyBaseStrength += 1;
+        }
+        
         
         Application.LoadLevel(Application.loadedLevel);
         UpdateHealth(playerCurrentHealth);
@@ -230,6 +236,20 @@ public class GameManager : MonoBehaviour
        occupiedSpots.Clear();
 
        enemiesMoving = false;
+    }
+    public void callDisplayHit(Vector3 position)
+    {
+        StartCoroutine(DisplayHit(position));
+    }
+    public IEnumerator DisplayHit(Vector3 position)
+    {
+        float hitDisplayTime = 0.25f;
+        GameObject hit = hitAnim;
+        hit = Instantiate(hit, position, Quaternion.identity) as GameObject;
+        yield return new WaitForSeconds(hitDisplayTime);
+        hit.gameObject.transform.position = new Vector3(-1000, -1000, 0);
+        hit.SetActive(false);
+        Destroy(hit);
     }
 
    public void UpdateHealth(int currentHealth)

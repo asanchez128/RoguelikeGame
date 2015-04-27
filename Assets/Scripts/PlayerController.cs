@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.Design.Serialization;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,8 +19,8 @@ public class PlayerController : MovingObject
 
     protected override void Start()
     {
-        stamina = GameManager.instance.playerCurrentStamina.Value;
-        health = GameManager.instance.playerCurrentHealth.Value;
+        stamina = GameManager.instance.playerCurrentStamina;
+        health = GameManager.instance.playerCurrentHealth;
         strength = GameManager.instance.playerStrength;
         potions = GameManager.instance.foundPotions;
         
@@ -30,13 +29,17 @@ public class PlayerController : MovingObject
 
     private void OnDisable()
     {
+        GameManager.instance.playerCurrentStamina = stamina;
+        GameManager.instance.playerCurrentHealth = health;
+        GameManager.instance.foundPotions = potions;
+        GameManager.instance.playerStrength = strength;
     }
 
 
     private void Update()
     {
-        GameManager.instance.UpdateHealth();
-        GameManager.instance.UpdateStamina();
+        GameManager.instance.UpdateHealth(health);
+        GameManager.instance.UpdateStamina(stamina);
         GameManager.instance.UpdatePlayerLevel();
         GameManager.instance.UpdatePlayerScore();
 
@@ -67,7 +70,6 @@ public class PlayerController : MovingObject
             AttemptMove<EnemyController>(horizontal, vertical);
             GameManager.instance.playersTurn = false;
         }
-        
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
@@ -343,37 +345,32 @@ public class PlayerController : MovingObject
     {
         health -= loss;
         turnsSinceHurt = 0;
-        GameManager.instance.playerCurrentHealth -= loss;
-        GameManager.instance.UpdateHealth();
         CheckIfGameOver();
     }
 
     public void GainHealth(int gain)
     {
-        GameManager.instance.playerCurrentHealth += gain;
-        if (GameManager.instance.playerCurrentHealth.Value > GameManager.instance.playerMaxHealth.Value)
+        health += gain;
+        if (health > GameManager.instance.playerMaxHealth)
         {
-           health = GameManager.instance.playerMaxHealth.Value;
+           health = GameManager.instance.playerMaxHealth;
         }
-        GameManager.instance.UpdateHealth();
     }
 
     public void LoseStamina(int loss)
     {
         stamina -= loss;
-        GameManager.instance.playerCurrentStamina -= loss;
-        GameManager.instance.UpdateStamina();
+        
         CheckIfGameOver();
     }
 
     public void GainStamina(int gain)
     {
-       GameManager.instance.playerCurrentStamina += gain;
-       if (GameManager.instance.playerCurrentStamina > GameManager.instance.playerMaxStamina.Value)
+        stamina += gain;
+        if (stamina > GameManager.instance.playerMaxStamina)
         {
-           GameManager.instance.playerCurrentStamina = GameManager.instance.playerMaxStamina.Value;
+            stamina = GameManager.instance.playerMaxStamina;
         }
-        GameManager.instance.UpdateStamina();
     }
 
     public void LoseStrength(int loss)

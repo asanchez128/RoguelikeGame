@@ -106,7 +106,13 @@ public class EnemyController : MovingObject {
            {
                Vector3 pos = new Vector3(gameObject.transform.position.x + Random.Range(-1, 2),
                                          gameObject.transform.position.y + Random.Range(-1, 2), 0f);
-                   
+               int tries = 100;
+               while (tries > 0 && GameManager.instance.levelWalls.Contains(pos))
+               {
+                    pos = new Vector3(gameObject.transform.position.x + Random.Range(-1, 2),
+                                         gameObject.transform.position.y + Random.Range(-1, 2), 0f);
+                    tries--;
+               }
                Instantiate(itemDrop, pos, Quaternion.identity);
            }
            if (GameManager.occupiedSpots.Contains(gameObject.transform.position))

@@ -434,7 +434,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetupScene(int levelNumber)
+    public List<Vector3> SetupScene(int levelNumber)
     {   
         floors.Clear();
         walls.Clear();
@@ -458,5 +458,6 @@ public class BoardManager : MonoBehaviour
             BuildWinningScreen();
         }
         DisplayScene();
+        return walls;
     }
 }

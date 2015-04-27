@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     public bool waitingForInput = false;
     public bool dead = false;
 
+    public List<Vector3> levelWalls;
+
     void Awake()
     {
         if (instance == null)
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
 
         playerLog = GetComponent<PlayerLog>();
         DontDestroyOnLoad(playerLog);
+
+        if (level == 1)
+        {
+            playerLog.NewMessage("Welcome to Dungeon Adventure!");
+        }
 
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
@@ -93,7 +100,7 @@ public class GameManager : MonoBehaviour
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         ScoreText.text = "Score:  " + playerPoints;
 
-        boardScript.SetupScene(level);
+        levelWalls = boardScript.SetupScene(level);
         PlayerObject = GameObject.FindWithTag("Player");
         PlayerObject.transform.position = BoardManager.entrance;
 

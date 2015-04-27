@@ -20,8 +20,8 @@ public class PlayerController : MovingObject
 
     protected override void Start()
     {
-        stamina = GameManager.instance.playerCurrentStamina;
-        health = GameManager.instance.playerCurrentHealth;
+        stamina = GameManager.instance.playerCurrentStamina.Value;
+        health = GameManager.instance.playerCurrentHealth.Value;
         strength = GameManager.instance.playerStrength;
         potions = GameManager.instance.foundPotions;
         
@@ -30,17 +30,13 @@ public class PlayerController : MovingObject
 
     private void OnDisable()
     {
-        GameManager.instance.playerCurrentStamina = stamina;
-        GameManager.instance.playerCurrentHealth = health;
-        GameManager.instance.foundPotions = potions;
-        GameManager.instance.playerStrength = strength;
     }
 
 
     private void Update()
     {
-        GameManager.instance.UpdateHealth(health);
-        GameManager.instance.UpdateStamina(stamina);
+        GameManager.instance.UpdateHealth();
+        GameManager.instance.UpdateStamina();
         GameManager.instance.UpdatePlayerLevel();
         GameManager.instance.UpdatePlayerScore();
 
@@ -354,10 +350,10 @@ public class PlayerController : MovingObject
 
     public void GainHealth(int gain)
     {
-        health += gain;
-        if (health > GameManager.instance.playerMaxHealth)
+        GameManager.instance.playerCurrentHealth += gain;
+        if (GameManager.instance.playerCurrentHealth.Value > GameManager.instance.playerMaxHealth.Value)
         {
-           health = GameManager.instance.playerMaxHealth;
+           health = GameManager.instance.playerMaxHealth.Value;
         }
         GameManager.instance.UpdateHealth();
     }
@@ -372,10 +368,10 @@ public class PlayerController : MovingObject
 
     public void GainStamina(int gain)
     {
-        stamina += gain;
-        if (stamina > GameManager.instance.playerMaxStamina)
+       GameManager.instance.playerCurrentStamina += gain;
+       if (GameManager.instance.playerCurrentStamina > GameManager.instance.playerMaxStamina.Value)
         {
-            stamina = GameManager.instance.playerMaxStamina;
+           GameManager.instance.playerCurrentStamina = GameManager.instance.playerMaxStamina.Value;
         }
         GameManager.instance.UpdateStamina();
     }

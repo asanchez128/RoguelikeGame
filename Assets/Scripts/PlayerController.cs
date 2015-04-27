@@ -197,61 +197,73 @@ public class PlayerController : MovingObject
         }
         else if (other.tag == "Potion1")
         {
+            GameManager.playerLog.NewMessage("You drink a blue potion.");
             GetPotionEffect(1);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion2")
         {
+            GameManager.playerLog.NewMessage("You drink a red potion.");
             GetPotionEffect(2);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion3")
         {
+            GameManager.playerLog.NewMessage("You drink a yellow potion.");
             GetPotionEffect(3);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion4")
         {
+            GameManager.playerLog.NewMessage("You drink a purple potion.");
             GetPotionEffect(4);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion5")
         {
+            GameManager.playerLog.NewMessage("You drink a green potion.");
             GetPotionEffect(5);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion6")
         {
+            GameManager.playerLog.NewMessage("You drink a brown potion.");
             GetPotionEffect(6);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion7")
         {
+            GameManager.playerLog.NewMessage("You drink a grey potion.");
             GetPotionEffect(7);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion8")
         {
+            GameManager.playerLog.NewMessage("You drink a dark potion.");
             GetPotionEffect(8);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion9")
         {
+            GameManager.playerLog.NewMessage("You drink a fizzy potion.");
             GetPotionEffect(9);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion10")
         {
+            GameManager.playerLog.NewMessage("You drink a swirling potion.");
             GetPotionEffect(10);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion11")
         {
+            GameManager.playerLog.NewMessage("You drink a glowing potion.");
             GetPotionEffect(11);
             Destroy(other.gameObject);
         }
         else if (other.tag == "Potion12")
         {
+            GameManager.playerLog.NewMessage("You drink a frothy potion.");
             GetPotionEffect(12);
             Destroy(other.gameObject);
         }
@@ -273,66 +285,66 @@ public class PlayerController : MovingObject
         #region potions
         if (potions[potionNum] == 1)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of healing!");
+            GameManager.playerLog.NewMessage("You regain health!");
             GainHealth(50);
         }
         else if (potions[potionNum] == 2)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of poison...");
+            GameManager.playerLog.NewMessage("You are hurt by poison...");
             LoseHealth(20);
         }
         else if (potions[potionNum] == 3)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of stamina!");
+            GameManager.playerLog.NewMessage("You regain stamina!");
             GainStamina(100);
         }
         else if (potions[potionNum] == 4)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of hunger...");
+            GameManager.playerLog.NewMessage("You lose stamina...");
             LoseStamina(100);
         }
         else if (potions[potionNum] == 5)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of strength!");
+            GameManager.playerLog.NewMessage("You feel stronger!");
             GainStrength(4);
         }
         else if (potions[potionNum] == 6)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of weakness...");
+            GameManager.playerLog.NewMessage("You feel weaker...");
             LoseStrength(4);
         }
         else if (potions[potionNum] == 7)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of augmented health!");
+            GameManager.playerLog.NewMessage("Your maximum health has increased!");
             GameManager.instance.playerMaxHealth += 10;
             GainHealth(10);
         }
         else if (potions[potionNum] == 8)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of diminished health...");
+            GameManager.playerLog.NewMessage("Your maximum health has decreased...");
             GameManager.instance.playerMaxHealth -= 10;
             LoseHealth(10);
         }
         else if (potions[potionNum] == 9)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of augmented stamina!");
+            GameManager.playerLog.NewMessage("Your maximum stamina has increased!");
             GameManager.instance.playerMaxStamina += 50;
             GainStamina(50);
         }
         else if (potions[potionNum] == 10)
         {
-            GameManager.playerLog.NewMessage("You drink a potion of diminished stamina...");
+            GameManager.playerLog.NewMessage("Your maximum stamina has decreased...");
             GameManager.instance.playerMaxStamina -= 50;
             LoseStamina(50);
         }
         else if (potions[potionNum] == 11)
         {
-            GameManager.playerLog.NewMessage("You drink an awful potion...");
+            GameManager.playerLog.NewMessage("It tastes awful...");
             LevelDown();
         }
         else if (potions[potionNum] == 12)
         {
-            GameManager.playerLog.NewMessage("You drink a wondrous potion!");
+            GameManager.playerLog.NewMessage("You feel a wondrous magic!");
             LevelUp();
         }
         #endregion

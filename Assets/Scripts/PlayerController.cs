@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.ComponentModel.Design.Serialization;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,9 +40,11 @@ public class PlayerController : MovingObject
 
     private void Update()
     {
-        if (!GameManager.instance.playersTurn) 
-            return;
-
+       GameManager.instance.UpdateHealth();
+       GameManager.instance.UpdateStamina();
+       if (!GameManager.instance.playersTurn)
+       return;
+        
         int horizontal = 0;     //Used to store the horizontal move direction.
         int vertical = 0;       //Used to store the vertical move direction.
 
@@ -66,6 +69,7 @@ public class PlayerController : MovingObject
             AttemptMove<EnemyController>(horizontal, vertical);
             GameManager.instance.playersTurn = false;
         }
+        
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
@@ -343,6 +347,7 @@ public class PlayerController : MovingObject
         health -= loss;
         turnsSinceHurt = 0;
         GameManager.instance.playerCurrentHealth -= loss;
+        GameManager.instance.UpdateHealth();
         CheckIfGameOver();
     }
 
@@ -354,13 +359,14 @@ public class PlayerController : MovingObject
         {
            GameManager.instance.playerCurrentHealth = GameManager.instance.playerMaxHealth;
         }
+        GameManager.instance.UpdateHealth();
     }
 
     public void LoseStamina(int loss)
     {
         stamina -= loss;
         GameManager.instance.playerCurrentStamina -= loss;
-        
+        GameManager.instance.UpdateStamina();
         CheckIfGameOver();
     }
 
@@ -373,6 +379,7 @@ public class PlayerController : MovingObject
            GainHealth(GameManager.instance.playerCurrentStamina.GetValueOrDefault() - GameManager.instance.playerMaxStamina);
            GameManager.instance.playerCurrentStamina = GameManager.instance.playerMaxStamina;
         }
+        GameManager.instance.UpdateStamina();
     }
 
     public void LoseStrength(int loss)

@@ -12,28 +12,24 @@ Platform assembly: C:\Users\amadeus\Documents\RoguelikeGame\rogueLikeGame2_Data\
 Loading C:\Users\amadeus\Documents\RoguelikeGame\rogueLikeGame2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\amadeus\Documents\RoguelikeGame\rogueLikeGame2_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\amadeus\Documents\RoguelikeGame\rogueLikeGame2_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.078 seconds
+- Completed reload, in  0.048 seconds
 desktop: 1366x768 40Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: C:\Users\amadeus\Documents\RoguelikeGame\rogueLikeGame2_Data\Managed\System.Core.dll (this message is harmless)
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.340471 ms
+UnloadTime: 4.323046 ms
 Default clip could not be found in attached animations list.
  
 (Filename:  Line: 400)
 
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
 
-
-Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 734.
-Total: 0.253903 ms (FindLiveObjects: 0.035698 ms CreateObjectMapping: 0.016956 ms MarkObjects: 0.195447 ms  DeleteObjects: 0.005354 ms)
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 569.
+Total: 9.961123 ms (FindLiveObjects: 0.055332 ms CreateObjectMapping: 0.027666 ms MarkObjects: 9.865632 ms  DeleteObjects: 0.011155 ms)
 
 Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.472108 ms
+UnloadTime: 0.706823 ms
 Default clip could not be found in attached animations list.
  
 (Filename:  Line: 400)
@@ -47,60 +43,6 @@ Default clip could not be found in attached animations list.
 (Filename:  Line: 400)
 
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 2284.
-Total: 0.344487 ms (FindLiveObjects: 0.062918 ms CreateObjectMapping: 0.045068 ms MarkObjects: 0.230699 ms  DeleteObjects: 0.005354 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.263268 ms
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 2451.
-Total: 0.445780 ms (FindLiveObjects: 0.081659 ms CreateObjectMapping: 0.034805 ms MarkObjects: 0.322175 ms  DeleteObjects: 0.006693 ms)
-
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.586336 ms
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 3026.
-Total: 0.647921 ms (FindLiveObjects: 0.145469 ms CreateObjectMapping: 0.086121 ms MarkObjects: 0.409636 ms  DeleteObjects: 0.006247 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.784015 ms
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-Default clip could not be found in attached animations list.
- 
-(Filename:  Line: 400)
-
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 3595.
-Total: 0.543504 ms (FindLiveObjects: 0.155733 ms CreateObjectMapping: 0.037483 ms MarkObjects: 0.343148 ms  DeleteObjects: 0.006693 ms)
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1648.
+Total: 0.594820 ms (FindLiveObjects: 0.100847 ms CreateObjectMapping: 0.061579 ms MarkObjects: 0.419453 ms  DeleteObjects: 0.011601 ms)
 

@@ -64,8 +64,8 @@ public class GameManager : MonoBehaviour
         PlayerObject = GameObject.FindWithTag("Player");
         enemies = new List<EnemyController>();
         foundPotions = new Dictionary<int,int>();
-        healthObject = new GameObject();
-        staminaObject = new GameObject();
+        instance.healthObject = new GameObject();
+        instance.staminaObject = new GameObject();
         healthObject.AddComponent<GUIText>();
         healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
         staminaObject.AddComponent<GUIText>();
@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour
         enemyBaseStrength += 2;
         
         Application.LoadLevel(Application.loadedLevel);
+        
     }
 
     public void AddEnemyToList(EnemyController script)
@@ -162,27 +163,27 @@ public class GameManager : MonoBehaviour
        enemiesMoving = false;
     }
 
-   private void UpdateHealth()
+   public void UpdateHealth()
    {
-      if (healthObject != null)
-         healthObject.GetComponent<GUIText>().text = "Health: " + instance.playerCurrentHealth;
+      if (instance.healthObject != null)
+         instance.healthObject.GetComponent<GUIText>().text = "Health: " + instance.playerCurrentHealth;
       else
       {
-         healthObject = new GameObject();
-        healthObject.AddComponent<GUIText>();
-        healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
+         instance.healthObject = new GameObject();
+         instance.healthObject.AddComponent<GUIText>();
+         instance.healthObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.1f, 0.0f);
       }
    }
 
-   private void UpdateStamina()
+   public void UpdateStamina()
    {
-      if (staminaObject != null)
-         staminaObject.GetComponent<GUIText>().text = "Stamina: " + instance.playerCurrentStamina;
+      if (instance.staminaObject != null)
+         instance.staminaObject.GetComponent<GUIText>().text = "Stamina: " + instance.playerCurrentStamina;
       else
       {
-         staminaObject = new GameObject();
-        staminaObject.AddComponent<GUIText>();
-        staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
+         instance.staminaObject = new GameObject();
+         instance.staminaObject.AddComponent<GUIText>();
+         instance.staminaObject.GetComponent<Transform>().position = new Vector3(0.1f, 0.9f, 0.0f);
       }
    }
 }

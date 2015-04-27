@@ -74,7 +74,6 @@ public class EnemyController : MovingObject {
    public void LoseHealth(int loss)
    {
        enemyHealth -= loss;
-
        CheckIfDead();
    }
 

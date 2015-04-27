@@ -12,3 +12,4 @@ Contributions:
 
 Nathan:  Map generation, monsters and monster AI, items/scoring, GUI
 Amadeus:  Character, movement, GUI, 
+Nathan: 55% / Amadeus: 45% 

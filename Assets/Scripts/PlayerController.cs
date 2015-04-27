@@ -343,6 +343,7 @@ public class PlayerController : MovingObject
     }
     public void LoseHealth(int loss)
     {
+        GameManager.instance.callDisplayHit(gameObject.transform.position);
         health -= loss;
         turnsSinceHurt = 0;
         CheckIfGameOver();

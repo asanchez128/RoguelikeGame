@@ -89,6 +89,7 @@ public class EnemyController : MovingObject {
 
    public void LoseHealth(int loss)
    {
+       GameManager.instance.callDisplayHit(gameObject.transform.position);
        enemyHealth -= loss;
        CheckIfDead();
    }

@@ -100,6 +100,8 @@ public class PlayerController : MovingObject
             hitEnemy.LoseHealth(attack);
             if (GameManager.instance.enemiesKilled >= Math.Pow(2, GameManager.instance.playerLevel))
                 LevelUp();
+
+            GetComponent<AudioSource>().Play();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

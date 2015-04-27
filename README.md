@@ -11,5 +11,5 @@ Arrow keys to move.  Attack by moving into an enemy.
 Contributions:
 
 Nathan:  Map generation, monsters and monster AI, items/scoring, GUI
-Amadeus:  Character, movement, GUI, 
+Player, character movement, GUI, opening menu, audio/sound effects
 Nathan: 55% / Amadeus: 45% 
